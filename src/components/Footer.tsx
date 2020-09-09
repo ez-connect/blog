@@ -34,7 +34,9 @@ export class Footer extends React.PureComponent<any, IssueState> {
   }
 
   private async _load() {
-    const item = await GitHub.findOneIssue(config.footerIssueNumber);
-    this.setState({ item });
+    const items = await GitHub.findIssues({ labels: config.data.footer });
+    if (items.length > 0) {
+      this.setState({ item: items[0] });
+    }
   }
 }

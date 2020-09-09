@@ -5,6 +5,10 @@ export interface IssueProps {
   item?: Issue;
 }
 
+export interface IssueListProps {
+  items: Issue[];
+}
+
 export interface IssueState {
   item?: Issue;
 }

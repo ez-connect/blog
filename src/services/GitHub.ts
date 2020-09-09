@@ -10,16 +10,16 @@ export interface IssueParams {
   // A list of comma separated label names. Example: bug,ui,@high
   labels?: string;
   // What to sort results by. Can be either created, updated, comments.
-  sort: 'created' | 'updated' | 'comments';
+  sort?: 'created' | 'updated' | 'comments';
   // The direction of the sort. Can be either asc or desc.
-  direction: 'asc' | 'desc';
+  direction?: 'asc' | 'desc';
 
   // Only issues updated at or after this time are returned.
   // This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.
-  since: string;
+  since?: string;
 
   // Results per page (max 100)
-  per_page: number;
+  per_page?: number;
 }
 
 class GitHub {
@@ -27,8 +27,8 @@ class GitHub {
     return await Rest.get<User>(`https://api.github.com/users/${username}`);
   }
 
-  public async findIssues(): Promise<Issue[]> {
-    return await Rest.get<Issue[]>('/issues');
+  public async findIssues(params?: IssueParams): Promise<Issue[]> {
+    return await Rest.get<Issue[]>('/issues', { params });
   }
 
   public async findOneIssue(number: number): Promise<Issue> {

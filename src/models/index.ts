@@ -1,3 +1,4 @@
+export * from './label';
 export * from './issue';
 export * from './user';
 

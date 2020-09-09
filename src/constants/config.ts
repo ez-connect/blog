@@ -9,13 +9,17 @@ export const config = {
       'Content-Type': 'application/json',
     },
   },
-  navIssueNumber: 1,
-  footerIssueNumber: 2,
-  headerIssueNumber: 3,
+  data: {
+    nav: 'nav',
+    header: 'header',
+    footer: 'footer',
+    post: 'post',
+  },
   router: {
     home: '/',
     signIn: '/sign-in',
     about: '/about',
     posts: '/posts',
+    users: '/users',
   },
 };

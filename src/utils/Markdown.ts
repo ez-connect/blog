@@ -1,6 +1,6 @@
 import Md2Json from 'md-2-json';
 
-const kRegexImage = /\[.*\]\((http.*\/.*)\)/gm;
+const kRegexImage = /!\[.*\]\((http.*\/.*)\)/gm;
 
 class Markdown {
   public parse(md?: string): any {
@@ -18,6 +18,14 @@ class Markdown {
     }
 
     return matches[1];
+  }
+
+  public getDescription(body?: string): string {
+    if (!body) {
+      return '';
+    }
+
+    return body.substr(0, 500).concat('...');
   }
 }
 
