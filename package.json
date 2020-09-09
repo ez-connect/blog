@@ -13,9 +13,14 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "history": "^5.0.0",
+    "md-2-json": "^1.0.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3",
+    "react-syntax-highlighter": "^13.5.3",
+    "timeago.js": "^4.0.2"
   },
   "devDependencies": {
     "@react-native-community/eslint-config": "^2.0.0",

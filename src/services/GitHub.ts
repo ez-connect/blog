@@ -1,5 +1,4 @@
-
-import { User } from '~/models';
+import { Issue, User } from '~/models';
 
 import { Rest } from './Rest';
 
@@ -32,8 +31,8 @@ class GitHub {
     return await Rest.get<Issue[]>('/issues');
   }
 
-  public async findOneIssues(id: number): Promise<Issue> {
-    return await Rest.get<Issue>(`/issues/${id}`);
+  public async findOneIssue(number: number): Promise<Issue> {
+    return await Rest.get<Issue>(`/issues/${number}`);
   }
 }
 

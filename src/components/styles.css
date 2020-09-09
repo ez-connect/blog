@@ -1,0 +1,19 @@
+.header {
+  background-size: cover;
+}
+
+.pin-post-main-image {
+  height: 150px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.pin-post-image {
+  height: 80px;
+  width: 120px;
+}
+
+.story-post-image {
+  height: 120px;
+  width: 180px;
+}
