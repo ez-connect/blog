@@ -12,4 +12,13 @@ module.exports = {
   rules: {
     'simple-import-sort/sort': 1,
   },
+  settings: {
+    'import/resolver': {
+      typescript: {},
+      'babel-plugin-root-import': {
+        rootPathPrefix: '~',
+        rootPathSuffix: 'src'
+      }
+    }
+  }
 };

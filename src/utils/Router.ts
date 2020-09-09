@@ -1,6 +1,6 @@
 import { createBrowserHistory } from 'history';
 
-import { config } from '@/constants';
+import { config } from '~/constants';
 
 export const history = createBrowserHistory();
 

@@ -1,7 +1,7 @@
 import Axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 
-import { config } from '@/constants';
-import { Logger, Router } from '@/utils';
+import { config } from '~/constants';
+import { Logger, Router } from '~/utils';
 
 class Rest {
   private _axios: AxiosInstance;

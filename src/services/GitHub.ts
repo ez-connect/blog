@@ -1,4 +1,5 @@
-import { Issue, User } from '@/models';
+
+import { User } from '~/models';
 
 import { Rest } from './Rest';
 
