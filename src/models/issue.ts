@@ -3,13 +3,21 @@ import { User } from './user';
 
 export interface Issue {
   id: number;
-  number: number;
-  html_url: string;
+
+  number?: number; // GitHub
+  iid?: number; // GitHub
+
   title: string;
   labels: Label[];
-  body: string;
+
+  body?: string; // GitHub
+  description?: string; // GitLab
+
   state: 'open' | 'closed';
-  user: User;
+
+  user: User; // GitHub
+  author: User; // GitLab
+
   created_at: string;
   updated_at: string;
 }
