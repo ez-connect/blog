@@ -13,6 +13,7 @@ export const config = {
     nav: 'nav',
     header: 'header',
     footer: 'footer',
+    single: 'single',
     post: 'post',
     pin: 'pin',
   },

@@ -20,12 +20,14 @@ class Markdown {
     return matches[1];
   }
 
-  public getDescription(body?: string): string {
+  // Remove all images all keep a short description from body
+  public getDescription(body?: string, length = 256): string {
     if (!body) {
       return '';
     }
 
-    return body.substr(0, 500).concat('...');
+    body = body.replaceAll(kRegexImage, '');
+    return body.substr(0, length).concat('...');
   }
 }
 

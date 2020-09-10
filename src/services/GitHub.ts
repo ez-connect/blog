@@ -21,6 +21,8 @@ export interface IssueParams {
 
   // Results per page (max 100)
   per_page?: number;
+  // Page number of the results to fetch
+  page?: number;
 }
 
 class GitHub {
@@ -30,25 +32,36 @@ class GitHub {
 
   public async findLabels(): Promise<Label[]> {
     const items = await Rest.get<Label[]>('labels');
-    this._removeSpecificLabel(items);
-    return items;
+    return this._removeSpecificLabel(items);
+  }
+
+  public async countIssuesByLabel(value: string): Promise<number> {
+    // const labels = [config.specicalLabel.post, value].join(',');
+    const params: IssueParams = { labels: value, per_page: 1 };
+    const items = await Rest.get<Issue[]>('/issues', { params });
+    if (items.length > 0) {
+      return items[0].number;
+    }
+
+    return 0;
   }
 
   public async findIssues(params?: IssueParams): Promise<Issue[]> {
     const items = await Rest.get<Issue[]>('/issues', { params });
     for (const e of items) {
-      this._removeSpecificLabel(e.labels);
+      e.labels = this._removeSpecificLabel(e.labels);
     }
+
     return items;
   }
 
   public async findOneIssue(number: number): Promise<Issue> {
     const item = await Rest.get<Issue>(`/issues/${number}`);
-    this._removeSpecificLabel(item.labels);
+    item.labels = this._removeSpecificLabel(item.labels);
     return item;
   }
 
-  private _removeSpecificLabel(value: Label[]) {
+  private _removeSpecificLabel(value: Label[]): Label[] {
     return value.filter((e) => !config.specicalLabel.hasOwnProperty(e.name));
   }
 }
