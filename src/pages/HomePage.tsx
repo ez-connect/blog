@@ -13,12 +13,14 @@ import { Issue, Label } from '~/models';
 import { GitHub } from '~/services';
 
 interface State {
+  pinPosts: Issue[];
   posts: Issue[];
   tags: Label[];
 }
 
 export class HomePage extends React.PureComponent<any, State> {
   public state: State = {
+    pinPosts: [],
     posts: [],
     tags: [],
   };
@@ -28,13 +30,13 @@ export class HomePage extends React.PureComponent<any, State> {
   }
 
   public render() {
-    const { posts } = this.state;
+    const { pinPosts, posts } = this.state;
     return (
       <>
         <NavBar />
         <Header />
 
-        <PinPostList items={posts} />
+        <PinPostList items={pinPosts} />
 
         <div className="container">
           <div className="row justify-content-between">
@@ -42,7 +44,7 @@ export class HomePage extends React.PureComponent<any, State> {
               <PostList items={posts} />
             </div>
 
-            <div className="col-md-4 pl-4">
+            <div className="col-md-4">
               <TagList />
             </div>
           </div>
@@ -54,6 +56,14 @@ export class HomePage extends React.PureComponent<any, State> {
   }
 
   private async _load() {
+    const pinPosts = await GitHub.findIssues({
+      labels: [config.specicalLabel.post, config.specicalLabel.pin].join(','),
+      sort: 'updated',
+      direction: 'desc',
+    });
+
+    this.setState({ pinPosts });
+
     const posts = await GitHub.findIssues({
       labels: config.specicalLabel.post,
       sort: 'updated',
