@@ -1,7 +1,7 @@
 import Axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 
 import { config } from '~/constants';
-import { Logger, Router } from '~/utils';
+import { Logger } from '~/utils';
 
 class Rest {
   private _axios: AxiosInstance;
@@ -33,7 +33,7 @@ class Rest {
       return res.data;
     } catch (err) {
       if (this.isUnauthorized(err)) {
-        Router.signIn();
+        window.open(config.router.signIn);
       }
 
       throw err;

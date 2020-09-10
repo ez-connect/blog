@@ -1,54 +1,32 @@
 import React from 'react';
 
-import {
-  Footer,
-  Header,
-  NavBar,
-  PinPostList,
-  PostList,
-  TagList,
-} from '~/components';
-import { config } from '~/constants';
-import { Issue, Label } from '~/models';
+import { Footer, NavBar, PostBody, PostHeader } from '~/components';
+import { IssueState } from '~/models';
 import { GitHub } from '~/services';
 
-interface State {
-  pinPosts: Issue[];
-  posts: Issue[];
-  tags: Label[];
-}
-
-export class HomePage extends React.PureComponent<any, State> {
-  public state: State = {
-    pinPosts: [],
-    posts: [],
-    tags: [],
-  };
+export class PostPage extends React.PureComponent<any, IssueState> {
+  constructor(props: any) {
+    super(props);
+    console.warn(props);
+    this.state = { item: props.location.item };
+  }
 
   public componentDidMount() {
     this._load();
   }
 
   public render() {
-    const { pinPosts, posts } = this.state;
+    const { item } = this.state;
+    if (!item) {
+      return null;
+    }
+
     return (
       <>
         <NavBar />
-        <Header />
 
-        <PinPostList items={pinPosts} />
-
-        <div className="container">
-          <div className="row justify-content-between">
-            <div className="col-md-8">
-              <PostList items={posts} />
-            </div>
-
-            <div className="col-md-4">
-              <TagList />
-            </div>
-          </div>
-        </div>
+        <PostHeader item={item} />
+        <PostBody item={item} />
 
         <Footer />
       </>
@@ -56,19 +34,11 @@ export class HomePage extends React.PureComponent<any, State> {
   }
 
   private async _load() {
-    const pinPosts = await GitHub.findIssues({
-      labels: [config.specicalLabel.post, config.specicalLabel.pin].join(','),
-      sort: 'updated',
-      direction: 'desc',
-    });
-
-    this.setState({ pinPosts });
-
-    const posts = await GitHub.findIssues({
-      labels: config.specicalLabel.post,
-      sort: 'updated',
-      direction: 'desc',
-    });
-    this.setState({ posts });
+    let { item } = this.state;
+    if (!item) {
+      const id = this.props.match.params.id;
+      item = await GitHub.findOneIssue(id);
+      this.setState({ item });
+    }
   }
 }

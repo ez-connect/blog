@@ -1,22 +1,20 @@
 import '~/assets/styles/main.css';
 
 import React from 'react';
-import { Route, Router, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { config } from './constants';
-import { HomePage } from './pages';
-import { history } from './utils';
+import { HomePage, PostPage } from './pages';
 
 class App extends React.PureComponent {
   public render() {
     return (
-      <Router history={history}>
+      <BrowserRouter>
         <Switch>
-          <Route path={config.router.home}>
-            <HomePage />
-          </Route>
+          <Route path={`${config.router.posts}/:id`} component={PostPage} />
+          <Route path={config.router.home} component={HomePage} />
         </Switch>
-      </Router>
+      </BrowserRouter>
     );
   }
 }

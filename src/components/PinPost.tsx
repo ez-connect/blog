@@ -1,6 +1,7 @@
 import './styles.css';
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import * as timeago from 'timeago.js';
 
 import { config } from '~/constants';
@@ -18,14 +19,20 @@ export class PinPost extends React.PureComponent<IssueProps> {
         <img className="pin-post-image" src={Markdown.getImage(body)} alt="" />
         <div className="pl-3">
           <h2 className="mb-2 h6 font-weight-bold">
-            <a className="text-dark" href={`${config.router.posts}/${number}`}>
+            <Link
+              className="text-dark"
+              to={{
+                pathname: `${config.router.posts}/${number}`,
+                item,
+              }}
+            >
               {title}
-            </a>
+            </Link>
           </h2>
-          <p className="card-text">
+          <div className="card-text">
             <div className="description">{Markdown.getDescription(body)}</div>
             <HorizonTagList items={labels} />
-          </p>
+          </div>
           <div className="card-text text-muted small">{user.login}</div>
           <small className="text-muted">{timeago.format(updated_at)}</small>
         </div>

@@ -1,6 +1,7 @@
 import './styles.css';
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import * as timeago from 'timeago.js';
 
 import { config } from '~/constants';
@@ -18,25 +19,28 @@ export class PostList extends React.PureComponent<IssueListProps> {
         <h5 className="font-weight-bold spanborder">
           <span>Latest</span>
         </h5>
-        {items.map((e) => {
-          const { number, title, body, labels, user, updated_at } = e;
+        {items.map((item) => {
+          const { number, title, body, labels, user, updated_at } = item;
           return (
             <div key={number} className="mb-3 d-flex justify-content-between">
               <div className="pr-3">
                 <h2 className="mb-1 h4 font-weight-bold">
-                  <a
+                  <Link
                     className="text-dark"
-                    href={`${config.router.posts}/${number}`}
+                    to={{
+                      pathname: `${config.router.posts}/${number}`,
+                      item,
+                    }}
                   >
                     {title}
-                  </a>
+                  </Link>
                 </h2>
-                <p className="card-text">
+                <div className="card-text">
                   <div className="description">
                     {Markdown.getDescription(body)}
                   </div>
                   <HorizonTagList items={labels} />
-                </p>
+                </div>
                 <div className="card-text text-muted small">{user.login}</div>
                 <small className="text-muted">
                   {timeago.format(updated_at)}

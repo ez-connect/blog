@@ -7,5 +7,5 @@ export * from './PinPostList';
 export * from './PostList';
 export * from './TagList';
 
-// export * from './PostHeader';
-// export * from './PostBody';
+export * from './PostHeader';
+export * from './PostBody';

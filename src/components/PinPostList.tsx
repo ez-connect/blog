@@ -1,6 +1,7 @@
 import './styles.css';
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import * as timeago from 'timeago.js';
 
 import { config } from '~/constants';
@@ -24,7 +25,7 @@ export class PinPostList extends React.PureComponent<IssueListProps> {
       <div className="container pt-4 pb-4">
         <div className="row">
           <div className="col-lg-6">
-            <div className="card border-0 mb-4 box-shadow h-xl-300">
+            <div className="card border-0 mb-4 box-shadow">
               <img
                 className="pin-post-main-image"
                 src={Markdown.getImage(body)}
@@ -32,19 +33,22 @@ export class PinPostList extends React.PureComponent<IssueListProps> {
               />
               <div className="card-body px-0 pb-0 d-flex flex-column align-items-start">
                 <h2 className="h4 font-weight-bold">
-                  <a
+                  <Link
                     className="text-dark"
-                    href={`${config.router.posts}/${number}`}
+                    to={{
+                      pathname: `${config.router.posts}/${number}`,
+                      item: firstPost,
+                    }}
                   >
                     {title}
-                  </a>
+                  </Link>
                 </h2>
-                <p className="card-text">
+                <div className="card-text">
                   <div className="description">
                     {Markdown.getDescription(body)}
                   </div>
                   <HorizonTagList items={labels} />
-                </p>
+                </div>
                 <div>
                   <small className="d-block">
                     <a
