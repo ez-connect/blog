@@ -9,11 +9,12 @@ export const config = {
       'Content-Type': 'application/json',
     },
   },
-  data: {
+  specicalLabel: {
     nav: 'nav',
     header: 'header',
     footer: 'footer',
     post: 'post',
+    pin: 'pin',
   },
   router: {
     home: '/',

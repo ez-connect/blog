@@ -19,7 +19,7 @@ export class PostList extends React.PureComponent<IssueListProps> {
         {items.map((e) => {
           const { number, title, body, user, updated_at } = e;
           return (
-            <div className="mb-3 d-flex justify-content-between">
+            <div key={number} className="mb-3 d-flex justify-content-between">
               <div className="pr-3">
                 <h2 className="mb-1 h4 font-weight-bold">
                   <a

@@ -47,7 +47,7 @@ export class NavBar extends React.PureComponent<any, IssueState> {
   }
 
   private async _load() {
-    const items = await GitHub.findIssues({ labels: config.data.nav });
+    const items = await GitHub.findIssues({ labels: config.specicalLabel.nav });
     if (items.length > 0) {
       this.setState({ item: items[0] });
     }
@@ -69,7 +69,6 @@ export class NavBar extends React.PureComponent<any, IssueState> {
       return null;
     }
 
-    items = items.filter((e) => e.name !== config.data.nav);
     return items.map(this._renderTag);
   }
 }

@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { Footer, Header, NavBar, PinPostList, PostList, TagList } from '~/components';
+import {
+  Footer,
+  Header,
+  NavBar,
+  PinPostList,
+  PostList,
+  TagList,
+} from '~/components';
 import { config } from '~/constants';
 import { Issue, Label } from '~/models';
 import { GitHub } from '~/services';
@@ -48,7 +55,7 @@ export class HomePage extends React.PureComponent<any, State> {
 
   private async _load() {
     const posts = await GitHub.findIssues({
-      labels: config.data.post,
+      labels: config.specicalLabel.post,
       sort: 'updated',
       direction: 'desc',
     });

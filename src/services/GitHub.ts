@@ -1,3 +1,4 @@
+import { config } from '~/constants';
 import { Issue, Label, User } from '~/models';
 
 import { Rest } from './Rest';
@@ -28,15 +29,27 @@ class GitHub {
   }
 
   public async findLabels(): Promise<Label[]> {
-    return await Rest.get<Label[]>('lables');
+    const items = await Rest.get<Label[]>('labels');
+    this._removeSpecificLabel(items);
+    return items;
   }
 
   public async findIssues(params?: IssueParams): Promise<Issue[]> {
-    return await Rest.get<Issue[]>('/issues', { params });
+    const items = await Rest.get<Issue[]>('/issues', { params });
+    for (const e of items) {
+      this._removeSpecificLabel(e.labels);
+    }
+    return items;
   }
 
   public async findOneIssue(number: number): Promise<Issue> {
-    return await Rest.get<Issue>(`/issues/${number}`);
+    const item = await Rest.get<Issue>(`/issues/${number}`);
+    this._removeSpecificLabel(item.labels);
+    return item;
+  }
+
+  private _removeSpecificLabel(value: Label[]) {
+    return value.filter((e) => !config.specicalLabel.hasOwnProperty(e.name));
   }
 }
 
