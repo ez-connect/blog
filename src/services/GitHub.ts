@@ -1,4 +1,4 @@
-import { Issue, User } from '~/models';
+import { Issue, Label, User } from '~/models';
 
 import { Rest } from './Rest';
 
@@ -25,6 +25,10 @@ export interface IssueParams {
 class GitHub {
   public async findOneUser(username: string): Promise<User> {
     return await Rest.get<User>(`https://api.github.com/users/${username}`);
+  }
+
+  public async findLabels(): Promise<Label[]> {
+    return await Rest.get<Label[]>('lables');
   }
 
   public async findIssues(params?: IssueParams): Promise<Issue[]> {

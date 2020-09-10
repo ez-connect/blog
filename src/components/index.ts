@@ -4,8 +4,8 @@ export * from './Header';
 export * from './Footer';
 export * from './NavBar';
 export * from './PinPostList';
-// export * from './PostList';
-// export * from './TagList';
+export * from './PostList';
+export * from './TagList';
 
 // export * from './PostHeader';
 // export * from './PostBody';
