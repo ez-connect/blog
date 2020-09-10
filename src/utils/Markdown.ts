@@ -1,7 +1,5 @@
 import Md2Json from 'md-2-json';
 
-const kRegexImage = /!\[.*\]\((http.*\/.*)\)/gm;
-
 class Markdown {
   public parse(md?: string): any {
     return Md2Json.parse(md ?? '');
@@ -12,8 +10,8 @@ class Markdown {
       return '';
     }
 
-    const matches = kRegexImage.exec(md);
-    if (!matches || matches.length !== 2) {
+    const matches = md.match(/!\[.*\]\((http.*\/.*)\)/);
+    if (!matches || matches.length < 1) {
       return '';
     }
 
@@ -26,7 +24,7 @@ class Markdown {
       return '';
     }
 
-    body = body.replaceAll(kRegexImage, '');
+    body = body.replaceAll(/\[.*\]\((http.*\/.*)\)/g, '');
     return body.substr(0, length).concat('...');
   }
 }

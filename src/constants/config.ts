@@ -7,6 +7,7 @@ export const config = {
     timeout: 10000,
     headers: {
       'Content-Type': 'application/json',
+      Authorization: 'token 7605d0407d6cffa76e024a178b1fe9cf1d479ec0',
     },
   },
   specicalLabel: {

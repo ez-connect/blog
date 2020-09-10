@@ -29,7 +29,7 @@ export class PostList extends React.PureComponent<IssueListProps> {
                     {title}
                   </a>
                 </h2>
-                <p>{Markdown.getDescription(body)}</p>
+                <p className="description">{Markdown.getDescription(body)}</p>
                 <div className="card-text text-muted small">{user.login}</div>
                 <small className="text-muted">
                   {timeago.format(updated_at)}

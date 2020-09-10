@@ -17,7 +17,7 @@ export class PinPostList extends React.PureComponent<IssueListProps> {
     }
 
     const firstPost = items[0];
-    const { number, title, body, user, updated_at } = firstPost;
+    const { number, title, body, user, labels, updated_at } = firstPost;
     const { login } = user;
     return (
       <div className="container pt-4 pb-4">
@@ -38,14 +38,17 @@ export class PinPostList extends React.PureComponent<IssueListProps> {
                     {title}
                   </a>
                 </h2>
-                <p className="card-text">{Markdown.getDescription(body)}</p>
+                <p className="card-text description">
+                  {Markdown.getDescription(body)}
+                </p>
                 <div>
                   <small className="d-block">
                     <a
                       className="text-muted"
                       href={`${config.router.users}/${login}`}
                     >
-                      {login}
+                      {login} in {labels.map((e) => e.name).join(', ')}
+                      <span className="badge badge-secondary">New</span>
                     </a>
                   </small>
                   <small className="text-muted">
