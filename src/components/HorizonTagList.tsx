@@ -3,46 +3,39 @@ import './styles.css';
 import React from 'react';
 
 import { Label } from '~/models';
-import { GitHub } from '~/services';
 
-interface State {
+interface Props {
   items: Label[];
 }
 
-export class HorizonTagList extends React.PureComponent<any, State> {
-  public state: State = { items: [] };
-
-  public componentDidMount() {
-    this._load();
-  }
-
+export class HorizonTagList extends React.PureComponent<Props> {
   public render() {
-    const { items } = this.state;
+    const { items } = this.props;
     if (items.length === 0) {
       return null;
     }
 
     return (
       <>
-        <h5 className="font-weight-bold spanborder">
-          <span>Tags</span>
-        </h5>
         {items.map((e) => {
           const { name } = e;
           return (
-            <p key={name}>
-              <a href={`/${name}`} className="text-dark">
-                <span className="font-weight-bold">{name}</span>
-              </a>
-            </p>
+            <span key={name}>
+              <span className="badge" style={this._getBadgeStyle(e)}>
+                {name}
+              </span>
+              &nbsp;
+            </span>
           );
         })}
       </>
     );
   }
 
-  private async _load() {
-    const items = await GitHub.findLabels();
-    this.setState({ items });
+  private _getBadgeStyle(value: Label): React.CSSProperties {
+    return {
+      backgroundColor: `#${value.color}`,
+      color: 'white',
+    };
   }
 }

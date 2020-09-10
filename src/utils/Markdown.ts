@@ -19,13 +19,12 @@ class Markdown {
   }
 
   // Remove all images all keep a short description from body
-  public getDescription(body?: string, length = 256): string {
+  public getDescription(body?: string): string {
     if (!body) {
       return '';
     }
 
-    body = body.replaceAll(/\[.*\]\((http.*\/.*)\)/g, '');
-    return body.substr(0, length).concat('...');
+    return body.replaceAll(/\[.*\]\((http.*\/.*)\)/g, '');
   }
 }
 

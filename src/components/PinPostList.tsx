@@ -7,6 +7,7 @@ import { config } from '~/constants';
 import { IssueListProps } from '~/models';
 import { Markdown } from '~/utils';
 
+import { HorizonTagList } from './HorizonTagList';
 import { PinPost } from './PinPost';
 
 export class PinPostList extends React.PureComponent<IssueListProps> {
@@ -38,8 +39,11 @@ export class PinPostList extends React.PureComponent<IssueListProps> {
                     {title}
                   </a>
                 </h2>
-                <p className="card-text description">
-                  {Markdown.getDescription(body)}
+                <p className="card-text">
+                  <div className="description">
+                    {Markdown.getDescription(body)}
+                  </div>
+                  <HorizonTagList items={labels} />
                 </p>
                 <div>
                   <small className="d-block">
@@ -47,8 +51,7 @@ export class PinPostList extends React.PureComponent<IssueListProps> {
                       className="text-muted"
                       href={`${config.router.users}/${login}`}
                     >
-                      {login} in {labels.map((e) => e.name).join(', ')}
-                      <span className="badge badge-secondary">New</span>
+                      {login}
                     </a>
                   </small>
                   <small className="text-muted">

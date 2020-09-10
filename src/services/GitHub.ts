@@ -52,6 +52,7 @@ class GitHub {
       e.labels = this._removeSpecificLabel(e.labels);
     }
 
+    console.warn(items);
     return items;
   }
 

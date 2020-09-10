@@ -7,6 +7,8 @@ import { config } from '~/constants';
 import { IssueListProps } from '~/models';
 import { Markdown } from '~/utils';
 
+import { HorizonTagList } from './HorizonTagList';
+
 export class PostList extends React.PureComponent<IssueListProps> {
   public render() {
     const { items } = this.props;
@@ -17,7 +19,7 @@ export class PostList extends React.PureComponent<IssueListProps> {
           <span>Latest</span>
         </h5>
         {items.map((e) => {
-          const { number, title, body, user, updated_at } = e;
+          const { number, title, body, labels, user, updated_at } = e;
           return (
             <div key={number} className="mb-3 d-flex justify-content-between">
               <div className="pr-3">
@@ -29,7 +31,12 @@ export class PostList extends React.PureComponent<IssueListProps> {
                     {title}
                   </a>
                 </h2>
-                <p className="description">{Markdown.getDescription(body)}</p>
+                <p className="card-text">
+                  <div className="description">
+                    {Markdown.getDescription(body)}
+                  </div>
+                  <HorizonTagList items={labels} />
+                </p>
                 <div className="card-text text-muted small">{user.login}</div>
                 <small className="text-muted">
                   {timeago.format(updated_at)}
@@ -43,6 +50,14 @@ export class PostList extends React.PureComponent<IssueListProps> {
             </div>
           );
         })}
+
+        <div className="container">
+          <div className="col-md-12 text-center">
+            <button type="button" className="flex btn btn-link">
+              Show more ↺
+            </button>
+          </div>
+        </div>
       </>
     );
   }
