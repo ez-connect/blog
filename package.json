@@ -45,6 +45,7 @@
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "prettier": "^2.0.4",
     "react-app-rewired": "^2.1.6",
+    "surge": "^0.21.6",
     "typescript": "^3.9.7"
   },
   "eslintConfig": {
