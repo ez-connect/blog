@@ -1,8 +1,10 @@
 import './styles.css';
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Label } from '~/models';
+import { Routing } from '~/utils';
 
 interface Props {
   items: Label[];
@@ -21,9 +23,13 @@ export class HorizonTagList extends React.PureComponent<Props> {
           const { name } = e;
           return (
             <span key={name}>
-              <span className="badge" style={this._getBadgeStyle(e)}>
+              <Link
+                className="badge"
+                style={this._getBadgeStyle(e)}
+                to={Routing.getTagPath(e)}
+              >
                 {name}
-              </span>
+              </Link>
               &nbsp;
             </span>
           );

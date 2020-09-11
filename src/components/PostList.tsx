@@ -42,7 +42,7 @@ export class PostList extends React.PureComponent<IssueListProps> {
                 </div>
                 <div className="card-text text-muted small">{user.login}</div>
                 <small className="text-muted">
-                  {timeago.format(updated_at)}
+                  {timeago.format(updated_at)} • {Markdown.getReadingTime(body)}
                 </small>
               </div>
               <img

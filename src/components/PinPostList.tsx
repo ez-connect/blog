@@ -59,7 +59,8 @@ export class PinPostList extends React.PureComponent<IssueListProps> {
                     </Link>
                   </small>
                   <small className="text-muted">
-                    {timeago.format(updated_at)}
+                    {timeago.format(updated_at)} •{' '}
+                    {Markdown.getReadingTime(body)}
                   </small>
                 </div>
               </div>

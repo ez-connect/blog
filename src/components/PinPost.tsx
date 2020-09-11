@@ -33,7 +33,9 @@ export class PinPost extends React.PureComponent<IssueProps> {
             <HorizonTagList items={labels} />
           </div>
           <div className="card-text text-muted small">{user.login}</div>
-          <small className="text-muted">{timeago.format(updated_at)}</small>
+          <small className="text-muted">
+            {timeago.format(updated_at)} • {Markdown.getReadingTime(body)}
+          </small>
         </div>
       </div>
     );

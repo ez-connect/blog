@@ -1,4 +1,5 @@
 import Md2Json from 'md-2-json';
+import readingTime from 'reading-time';
 
 class Markdown {
   public parse(md?: string): any {
@@ -25,6 +26,10 @@ class Markdown {
     }
 
     return body.replaceAll(/\[.*\]\((http.*\/.*)\)/g, '');
+  }
+
+  public getReadingTime(body?: string): string {
+    return readingTime(body).text;
   }
 }
 
