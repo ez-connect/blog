@@ -4,14 +4,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as timeago from 'timeago.js';
 
-import { config } from '~/constants';
-import { IssueListProps } from '~/models';
+import { Issue, ItemList } from '~/models';
 import { Markdown, Routing } from '~/utils';
 
+import { Avatar } from './Avatar';
 import { HorizonTagList } from './HorizonTagList';
 import { PinPost } from './PinPost';
 
-export class PinPostList extends React.PureComponent<IssueListProps> {
+export class PinPostList extends React.PureComponent<ItemList<Issue>> {
   public render() {
     const { items } = this.props;
     if (items.length === 0) {
@@ -20,7 +20,6 @@ export class PinPostList extends React.PureComponent<IssueListProps> {
 
     const firstPost = items[0];
     const { title, body, user, labels, updated_at } = firstPost;
-    const { login } = user;
     return (
       <div className="container pt-4 pb-4">
         <div className="row">
@@ -43,26 +42,20 @@ export class PinPostList extends React.PureComponent<IssueListProps> {
                     {title}
                   </Link>
                 </h2>
-                <div className="card-text">
-                  <div className="description">
-                    {Markdown.getDescription(body)}
-                  </div>
-                  <HorizonTagList items={labels} />
-                </div>
-                <div>
-                  <small className="d-block">
-                    <Link
-                      className="text-muted"
-                      to={`${config.router.users}/${login}`}
-                    >
-                      {login}
-                    </Link>
-                  </small>
-                  <small className="text-muted">
+
+                <p className="card-text description">
+                  {Markdown.getDescription(body)}
+                </p>
+
+                <Avatar item={user}>
+                  <span>
+                    <HorizonTagList items={labels} />
+                  </span>
+                  <span className="text-muted d-block">
                     {timeago.format(updated_at)} •{' '}
                     {Markdown.getReadingTime(body)}
-                  </small>
-                </div>
+                  </span>
+                </Avatar>
               </div>
             </div>
           </div>

@@ -4,18 +4,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as timeago from 'timeago.js';
 
-import { IssueProps } from '~/models';
+import { Issue, Item } from '~/models';
 import { Markdown, Routing } from '~/utils';
 
+import { Avatar } from './Avatar';
 import { HorizonTagList } from './HorizonTagList';
 
-export class PinPost extends React.PureComponent<IssueProps> {
+export class PinPost extends React.PureComponent<Item<Issue>> {
   public render() {
     const { item } = this.props;
     const { title, body, labels, user, updated_at } = item;
     return (
       <div className="mb-3 d-flex align-items-center">
-        <img className="pin-post-image" src={Markdown.getImage(body)} alt="" />
+        <img className="post-list-image" src={Markdown.getImage(body)} alt="" />
         <div className="pl-3">
           <h2 className="mb-2 h6 font-weight-bold">
             <Link
@@ -28,14 +29,19 @@ export class PinPost extends React.PureComponent<IssueProps> {
               {title}
             </Link>
           </h2>
-          <div className="card-text">
-            <div className="description">{Markdown.getDescription(body)}</div>
-            <HorizonTagList items={labels} />
-          </div>
-          <div className="card-text text-muted small">{user.login}</div>
-          <small className="text-muted">
-            {timeago.format(updated_at)} • {Markdown.getReadingTime(body)}
-          </small>
+
+          <p className="card-text description">
+            {Markdown.getDescription(body)}
+          </p>
+
+          <Avatar item={user}>
+            <span>
+              <HorizonTagList items={labels} />
+            </span>
+            <span className="text-muted d-block">
+              {timeago.format(updated_at)} • {Markdown.getReadingTime(body)}
+            </span>
+          </Avatar>
         </div>
       </div>
     );

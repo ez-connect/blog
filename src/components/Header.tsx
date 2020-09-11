@@ -4,12 +4,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { config } from '~/constants';
-import { IssueState } from '~/models';
+import { Issue, Item } from '~/models';
 import { GitHub } from '~/services';
 import { Markdown } from '~/utils';
 
-export class Header extends React.PureComponent<any, IssueState> {
-  public state: IssueState = {};
+export class Header extends React.PureComponent<any, Item<Issue>> {
+  public state: Item<Issue> = {};
 
   public componentDidMount() {
     this._load();

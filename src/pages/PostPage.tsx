@@ -7,11 +7,11 @@ import {
   PostHeader,
   ScrollToTop,
 } from '~/components';
-import { IssueState } from '~/models';
+import { Issue, Item } from '~/models';
 import { GitHub } from '~/services';
 import { Routing } from '~/utils';
 
-export class PostPage extends React.PureComponent<any, IssueState> {
+export class PostPage extends React.PureComponent<any, Item<Issue>> {
   constructor(props: any) {
     super(props);
     this.state = { item: props.location.item };

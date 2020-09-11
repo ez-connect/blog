@@ -4,12 +4,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as timeago from 'timeago.js';
 
-import { IssueListProps } from '~/models';
+import { Issue, ItemList } from '~/models';
 import { Markdown, Routing } from '~/utils';
 
+import { Avatar } from './Avatar';
 import { HorizonTagList } from './HorizonTagList';
 
-export class PostList extends React.PureComponent<IssueListProps> {
+export class PostList extends React.PureComponent<ItemList<Issue>> {
   public render() {
     const { items } = this.props;
 
@@ -34,19 +35,23 @@ export class PostList extends React.PureComponent<IssueListProps> {
                     {title}
                   </Link>
                 </h2>
-                <div className="card-text">
-                  <div className="description">
-                    {Markdown.getDescription(body)}
-                  </div>
-                  <HorizonTagList items={labels} />
-                </div>
-                <div className="card-text text-muted small">{user.login}</div>
-                <small className="text-muted">
-                  {timeago.format(updated_at)} • {Markdown.getReadingTime(body)}
-                </small>
+
+                <p className="card-text description">
+                  {Markdown.getDescription(body)}
+                </p>
+
+                <Avatar item={user}>
+                  <span>
+                    <HorizonTagList items={labels} />
+                  </span>
+                  <span className="text-muted d-block">
+                    {timeago.format(updated_at)} •{' '}
+                    {Markdown.getReadingTime(body)}
+                  </span>
+                </Avatar>
               </div>
               <img
-                className="story-post-image"
+                className="post-list-image"
                 src={Markdown.getImage(body)}
                 alt=""
               />

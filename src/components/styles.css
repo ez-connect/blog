@@ -8,12 +8,7 @@
   background-repeat: no-repeat;
 }
 
-.pin-post-image {
-  height: 80px;
-  width: 120px;
-}
-
-.story-post-image {
+.post-list-image {
   height: 120px;
   width: 180px;
 }

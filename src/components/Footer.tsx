@@ -3,14 +3,14 @@ import './styles.css';
 import React from 'react';
 
 import { config } from '~/constants';
-import { Issue, IssueState } from '~/models';
+import { Issue, Item } from '~/models';
 import { GitHub } from '~/services';
 import { Markdown } from '~/utils';
 
-export class Footer extends React.PureComponent<any, IssueState> {
+export class Footer extends React.PureComponent<any, Item<Issue>> {
   private static _item?: Issue;
 
-  public state: IssueState = {};
+  public state: Item<Issue> = {};
 
   public componentDidMount() {
     this._load();

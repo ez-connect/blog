@@ -2,9 +2,9 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import { CodeBlock } from '~/components';
-import { IssueProps } from '~/models';
+import { Issue, Item } from '~/models';
 
-export class PostBody extends React.PureComponent<IssueProps> {
+export class PostBody extends React.PureComponent<Item<Issue>> {
   public render() {
     const { item } = this.props;
     return (

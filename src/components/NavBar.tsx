@@ -2,15 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { config } from '~/constants';
-import { Issue, IssueState } from '~/models';
+import { Issue, Item } from '~/models';
 import { Label } from '~/models/label';
 import { GitHub } from '~/services';
 import { Markdown, Routing } from '~/utils';
 
-export class NavBar extends React.PureComponent<any, IssueState> {
+export class NavBar extends React.PureComponent<any, Item<Issue>> {
   private static _item?: Issue;
 
-  public state: IssueState = {};
+  public state: Item<Issue> = {};
 
   public componentDidMount() {
     this._load();

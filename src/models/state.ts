@@ -1,18 +1,7 @@
-import { Issue } from './issue';
-import { User } from './user';
-
-export interface IssueProps {
-  item?: Issue;
+export interface Item<T> {
+  item?: T;
 }
 
-export interface IssueListProps {
-  items: Issue[];
-}
-
-export interface IssueState {
-  item?: Issue;
-}
-
-export interface UserState {
-  user?: User;
+export interface ItemList<T> {
+  items: T[];
 }
