@@ -7,7 +7,7 @@ import {
   PostHeader,
   ScrollToTop,
 } from '~/components';
-import { Issue, IssueState, Label } from '~/models';
+import { Issue, Label } from '~/models';
 import { GitHub } from '~/services';
 import { Routing } from '~/utils';
 
@@ -27,20 +27,34 @@ export class TagPage extends React.PureComponent<any, State> {
   }
 
   public render() {
-    const { item } = this.state;
+    const { item, posts } = this.state;
     if (!item) {
       return null;
     }
 
+    const { name, description } = item;
     return (
       <>
         <ScrollToTop />
         <NavBar />
 
-        {/* <PostHeader item={item} />
-        <PostBody item={item} /> */}
+        <div className="jumbotron">
+          <h1 className="display-4 text-center">{name}</h1>
+          <p className="text-center">{description}</p>
+        </div>
+
+        {posts.map(this._renderItem)}
 
         <Footer />
+      </>
+    );
+  }
+
+  private _renderItem(item: Issue) {
+    return (
+      <>
+        <PostHeader item={item} useLineClamp />
+        <PostBody item={item} useLineClamp />
       </>
     );
   }
@@ -49,9 +63,11 @@ export class TagPage extends React.PureComponent<any, State> {
     let { item } = this.state;
     if (!item) {
       const name = Routing.getTagNameFromPath(this.props.match.params.id);
-      console.warn(name)
       item = await GitHub.findOneLabel(name);
       this.setState({ item });
     }
+
+    const posts = await GitHub.findIssues({ labels: item.name });
+    this.setState({ posts });
   }
 }
