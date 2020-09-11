@@ -1,6 +1,7 @@
 import './styles.css';
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { config } from '~/constants';
 import { IssueState } from '~/models';
@@ -26,9 +27,9 @@ export class Header extends React.PureComponent<any, IssueState> {
                   {data.title?.raw}
                 </h1>
                 <p className="mb-3">{data.body?.raw}</p>
-                <a href={config.router.about} className="btn btn-dark">
+                <Link to={config.router.about} className="btn btn-dark">
                   {data.buttonText?.raw}
-                </a>
+                </Link>
               </div>
 
               <img

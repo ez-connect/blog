@@ -4,16 +4,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as timeago from 'timeago.js';
 
-import { config } from '~/constants';
 import { IssueProps } from '~/models';
-import { Markdown } from '~/utils';
+import { Markdown, Routing } from '~/utils';
 
 import { HorizonTagList } from './HorizonTagList';
 
 export class PinPost extends React.PureComponent<IssueProps> {
   public render() {
     const { item } = this.props;
-    const { number, title, body, labels, user, updated_at } = item;
+    const { title, body, labels, user, updated_at } = item;
     return (
       <div className="mb-3 d-flex align-items-center">
         <img className="pin-post-image" src={Markdown.getImage(body)} alt="" />
@@ -22,7 +21,7 @@ export class PinPost extends React.PureComponent<IssueProps> {
             <Link
               className="text-dark"
               to={{
-                pathname: `${config.router.posts}/${number}`,
+                pathname: Routing.getPostPath(item),
                 item,
               }}
             >

@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { config } from '~/constants';
 import { IssueState } from '~/models';
 import { Label } from '~/models/label';
 import { GitHub } from '~/services';
-import { Markdown } from '~/utils';
+import { Markdown, Routing } from '~/utils';
 
 export class NavBar extends React.PureComponent<any, IssueState> {
   public state: IssueState = {};
@@ -21,9 +22,9 @@ export class NavBar extends React.PureComponent<any, IssueState> {
       <>
         <nav className="topnav navbar navbar-expand-lg navbar-light bg-white fixed-top">
           <div className="container">
-            <a className="navbar-brand" href={config.router.home}>
+            <Link className="navbar-brand" to={config.router.home}>
               <strong>{data.title?.raw}</strong>
-            </a>
+            </Link>
             <button
               className="navbar-toggler collapsed"
               type="button"
@@ -57,9 +58,9 @@ export class NavBar extends React.PureComponent<any, IssueState> {
     const { name } = item;
     return (
       <li key={name} className="nav-item">
-        <a className="nav-link" href={`/${name}`}>
+        <Link className="nav-link" to={Routing.getTagPath(item)}>
           {name}
-        </a>
+        </Link>
       </li>
     );
   }

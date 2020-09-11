@@ -6,7 +6,7 @@ import * as timeago from 'timeago.js';
 
 import { config } from '~/constants';
 import { IssueListProps } from '~/models';
-import { Markdown } from '~/utils';
+import { Markdown, Routing } from '~/utils';
 
 import { HorizonTagList } from './HorizonTagList';
 import { PinPost } from './PinPost';
@@ -19,7 +19,7 @@ export class PinPostList extends React.PureComponent<IssueListProps> {
     }
 
     const firstPost = items[0];
-    const { number, title, body, user, labels, updated_at } = firstPost;
+    const { title, body, user, labels, updated_at } = firstPost;
     const { login } = user;
     return (
       <div className="container pt-4 pb-4">
@@ -36,7 +36,7 @@ export class PinPostList extends React.PureComponent<IssueListProps> {
                   <Link
                     className="text-dark"
                     to={{
-                      pathname: `${config.router.posts}/${number}`,
+                      pathname: Routing.getPostPath(firstPost),
                       item: firstPost,
                     }}
                   >

@@ -4,9 +4,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as timeago from 'timeago.js';
 
-import { config } from '~/constants';
 import { IssueListProps } from '~/models';
-import { Markdown } from '~/utils';
+import { Markdown, Routing } from '~/utils';
 
 import { HorizonTagList } from './HorizonTagList';
 
@@ -28,7 +27,7 @@ export class PostList extends React.PureComponent<IssueListProps> {
                   <Link
                     className="text-dark"
                     to={{
-                      pathname: `${config.router.posts}/${number}`,
+                      pathname: Routing.getPostPath(item),
                       item,
                     }}
                   >

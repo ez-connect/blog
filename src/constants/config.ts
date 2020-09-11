@@ -22,6 +22,7 @@ export const config = {
     home: '/',
     signIn: '/sign-in',
     about: '/about',
+    tags: '/tags',
     posts: '/posts',
     users: '/users',
   },

@@ -1,9 +1,11 @@
 import './styles.css';
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Label } from '~/models';
 import { GitHub } from '~/services';
+import { Routing } from '~/utils';
 
 // interface Total {
 //   name: string;
@@ -36,9 +38,9 @@ export class TagList extends React.PureComponent<any, State> {
           const { name } = e;
           return (
             <p key={name}>
-              <a href={`/${name}`} className="text-dark">
+              <Link to={Routing.getTagPath(e)} className="text-dark">
                 <span className="font-weight-bold">{name}</span>
-              </a>
+              </Link>
             </p>
           );
         })}
