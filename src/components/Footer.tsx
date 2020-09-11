@@ -3,11 +3,13 @@ import './styles.css';
 import React from 'react';
 
 import { config } from '~/constants';
-import { IssueState } from '~/models';
+import { Issue, IssueState } from '~/models';
 import { GitHub } from '~/services';
 import { Markdown } from '~/utils';
 
 export class Footer extends React.PureComponent<any, IssueState> {
+  private static _item?: Issue;
+
   public state: IssueState = {};
 
   public componentDidMount() {
@@ -34,11 +36,15 @@ export class Footer extends React.PureComponent<any, IssueState> {
   }
 
   private async _load() {
-    const items = await GitHub.findIssues({
-      labels: config.specicalLabel.footer,
-    });
-    if (items.length > 0) {
-      this.setState({ item: items[0] });
+    if (!Footer._item) {
+      const items = await GitHub.findIssues({
+        labels: config.specicalLabel.footer,
+      });
+      if (items.length > 0) {
+        Footer._item = items[0];
+      }
     }
+
+    this.setState({ item: Footer._item });
   }
 }

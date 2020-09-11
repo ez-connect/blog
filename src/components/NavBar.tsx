@@ -2,12 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { config } from '~/constants';
-import { IssueState } from '~/models';
+import { Issue, IssueState } from '~/models';
 import { Label } from '~/models/label';
 import { GitHub } from '~/services';
 import { Markdown, Routing } from '~/utils';
 
 export class NavBar extends React.PureComponent<any, IssueState> {
+  private static _item?: Issue;
+
   public state: IssueState = {};
 
   public componentDidMount() {
@@ -48,10 +50,15 @@ export class NavBar extends React.PureComponent<any, IssueState> {
   }
 
   private async _load() {
-    const items = await GitHub.findIssues({ labels: config.specicalLabel.nav });
-    if (items.length > 0) {
-      this.setState({ item: items[0] });
+    if (!NavBar._item) {
+      const items = await GitHub.findIssues({
+        labels: config.specicalLabel.nav,
+      });
+      if (items.length > 0) {
+        NavBar._item = items[0];
+      }
     }
+    this.setState({ item: NavBar._item });
   }
 
   private _renderTag(item: Label) {
