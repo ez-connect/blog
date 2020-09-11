@@ -1,13 +1,19 @@
 import React from 'react';
 
-import { Footer, NavBar, PostBody, PostHeader } from '~/components';
+import {
+  Footer,
+  NavBar,
+  PostBody,
+  PostHeader,
+  ScrollToTop,
+} from '~/components';
 import { IssueState } from '~/models';
 import { GitHub } from '~/services';
+import { Routing } from '~/utils';
 
 export class PostPage extends React.PureComponent<any, IssueState> {
   constructor(props: any) {
     super(props);
-    console.warn(props);
     this.state = { item: props.location.item };
   }
 
@@ -23,6 +29,7 @@ export class PostPage extends React.PureComponent<any, IssueState> {
 
     return (
       <>
+        <ScrollToTop />
         <NavBar />
 
         <PostHeader item={item} />
@@ -36,7 +43,7 @@ export class PostPage extends React.PureComponent<any, IssueState> {
   private async _load() {
     let { item } = this.state;
     if (!item) {
-      const id = this.props.match.params.id;
+      const id = Routing.getIdFromPath(this.props.match.params.id);
       item = await GitHub.findOneIssue(id);
       this.setState({ item });
     }

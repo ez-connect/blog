@@ -1,3 +1,4 @@
+export * from './ScrollToTop';
 export * from './CodeBlock';
 
 export * from './Header';

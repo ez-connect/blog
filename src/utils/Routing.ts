@@ -19,13 +19,24 @@ class Routing {
   }
 
   public getTagPath(value: Label): string {
-    return `${config.router.tags}/${value.name}`;
+    const slug = slugify(value.name, { lower: true });
+    const id = value.id;
+    return `${config.router.tags}/${slug}-${id}`;
   }
 
   public getPostPath(value: Issue): string {
     const slug = slugify(value.title, { lower: true });
     const id = value.number ?? value.iid;
     return `${config.router.posts}/${slug}-${id}`;
+  }
+
+  public getIdFromPath(value: string): number {
+    const matches = value.match(/.*-(\d+)$/);
+    if (matches.length > 0) {
+      return Number.parseInt(matches[1], 10);
+    }
+
+    return 0;
   }
 }
 

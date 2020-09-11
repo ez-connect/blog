@@ -51,12 +51,12 @@ export class PinPostList extends React.PureComponent<IssueListProps> {
                 </div>
                 <div>
                   <small className="d-block">
-                    <a
+                    <Link
                       className="text-muted"
-                      href={`${config.router.users}/${login}`}
+                      to={`${config.router.users}/${login}`}
                     >
                       {login}
-                    </a>
+                    </Link>
                   </small>
                   <small className="text-muted">
                     {timeago.format(updated_at)}
