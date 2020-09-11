@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as timeago from 'timeago.js';
 
-import { Issue, Item } from '~/models';
+import { Issue } from '~/models';
 import { Markdown, Routing } from '~/utils';
 
 import { Avatar } from './Avatar';

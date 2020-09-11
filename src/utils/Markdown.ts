@@ -25,7 +25,7 @@ class Markdown {
       return '';
     }
 
-    return body.replaceAll(/\[.*\]\((http.*\/.*)\)/g, '');
+    return body.replaceAll(/!?\[.*\]\((http.*\/.*)\)/g, '');
   }
 
   public getReadingTime(body?: string): string {
