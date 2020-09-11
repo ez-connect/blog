@@ -6,6 +6,7 @@ import ScrollMemory from 'react-router-scroll-memory';
 
 import { config } from './constants';
 import { HomePage, PostPage } from './pages';
+import { TagPage } from './pages/TagPage';
 
 class App extends React.PureComponent {
   public render() {
@@ -13,6 +14,7 @@ class App extends React.PureComponent {
       <BrowserRouter>
         <ScrollMemory />
         <Switch>
+          <Route path={`${config.router.tags}/:id`} component={TagPage} />
           <Route path={`${config.router.posts}/:id`} component={PostPage} />
           <Route path={config.router.home} component={HomePage} />
         </Switch>

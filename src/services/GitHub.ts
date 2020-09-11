@@ -35,6 +35,10 @@ class GitHub {
     return this._removeSpecificLabel(items);
   }
 
+  public async findOneLabel(name: string): Promise<Label> {
+    return Rest.get<Label>(`labels/${name}`);
+  }
+
   public async countIssuesByLabel(value: string): Promise<number> {
     // const labels = [config.specicalLabel.post, value].join(',');
     const params: IssueParams = { labels: value, per_page: 1 };
@@ -47,6 +51,7 @@ class GitHub {
   }
 
   public async findIssues(params?: IssueParams): Promise<Issue[]> {
+    Object.assign(params, config.condition);
     const items = await Rest.get<Issue[]>('/issues', { params });
     for (const e of items) {
       e.labels = this._removeSpecificLabel(e.labels);

@@ -7,14 +7,19 @@ import {
   PostHeader,
   ScrollToTop,
 } from '~/components';
-import { IssueState } from '~/models';
+import { Issue, IssueState, Label } from '~/models';
 import { GitHub } from '~/services';
 import { Routing } from '~/utils';
 
-export class PostPage extends React.PureComponent<any, IssueState> {
+interface State {
+  item?: Label;
+  posts: Issue[];
+}
+
+export class TagPage extends React.PureComponent<any, State> {
   constructor(props: any) {
     super(props);
-    this.state = { item: props.location.item };
+    this.state = { item: props.location.item, posts: [] };
   }
 
   public componentDidMount() {
@@ -32,8 +37,8 @@ export class PostPage extends React.PureComponent<any, IssueState> {
         <ScrollToTop />
         <NavBar />
 
-        <PostHeader item={item} />
-        <PostBody item={item} />
+        {/* <PostHeader item={item} />
+        <PostBody item={item} /> */}
 
         <Footer />
       </>
@@ -43,8 +48,9 @@ export class PostPage extends React.PureComponent<any, IssueState> {
   private async _load() {
     let { item } = this.state;
     if (!item) {
-      const id = Routing.getPostIdFromPath(this.props.match.params.id);
-      item = await GitHub.findOneIssue(id);
+      const name = Routing.getTagNameFromPath(this.props.match.params.id);
+      console.warn(name)
+      item = await GitHub.findOneLabel(name);
       this.setState({ item });
     }
   }
