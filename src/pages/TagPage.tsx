@@ -16,14 +16,22 @@ interface State {
   posts: Issue[];
 }
 
-export class TagPage extends React.PureComponent<any, State> {
+export class TagPage extends React.Component<any, State> {
   constructor(props: any) {
     super(props);
     this.state = { item: props.location.item, posts: [] };
   }
 
   public componentDidMount() {
-    this._load();
+    this._load(this.props.location.item);
+  }
+
+  public shouldComponentUpdate(nextProps, nextState): boolean {
+    if (this.props !== nextProps) {
+      this._load(nextProps.location.item);
+    }
+
+    return this.state !== nextState;
   }
 
   public render() {
@@ -52,15 +60,14 @@ export class TagPage extends React.PureComponent<any, State> {
 
   private _renderItem(item: Issue) {
     return (
-      <>
+      <div key={item.id}>
         <PostHeader item={item} useLineClamp />
         <PostBody item={item} useLineClamp />
-      </>
+      </div>
     );
   }
 
-  private async _load() {
-    let { item } = this.state;
+  private async _load(item: Label) {
     if (!item) {
       const name = Routing.getTagNameFromPath(this.props.match.params.id);
       item = await GitHub.findOneLabel(name);

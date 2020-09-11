@@ -41,7 +41,7 @@ export class PostPage extends React.PureComponent<any, Item<Issue>> {
   }
 
   private async _load() {
-    let { item } = this.state;
+    let { item } = this.props;
     if (!item) {
       const id = Routing.getPostIdFromPath(this.props.match.params.id);
       item = await GitHub.findOneIssue(id);

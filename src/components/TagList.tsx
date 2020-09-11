@@ -34,11 +34,14 @@ export class TagList extends React.PureComponent<any, State> {
         <h5 className="font-weight-bold spanborder">
           <span>Tags</span>
         </h5>
-        {items.map((e) => {
-          const { name } = e;
+        {items.map((item) => {
+          const { name } = item;
           return (
             <p key={name}>
-              <Link to={Routing.getTagPath(e)} className="text-dark">
+              <Link
+                to={{ pathname: Routing.getTagPath(item), item }}
+                className="text-dark"
+              >
                 <span className="font-weight-bold">{name}</span>
               </Link>
             </p>

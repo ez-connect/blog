@@ -65,7 +65,13 @@ export class NavBar extends React.PureComponent<any, Item<Issue>> {
     const { name } = item;
     return (
       <li key={name} className="nav-item">
-        <Link className="nav-link" to={Routing.getTagPath(item)}>
+        <Link
+          className="nav-link"
+          to={{
+            pathname: Routing.getTagPath(item),
+            item,
+          }}
+        >
           {name}
         </Link>
       </li>

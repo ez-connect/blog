@@ -42,7 +42,7 @@ export class PostHeader extends React.PureComponent<Props> {
     const { title } = item;
     if (useLineClamp) {
       return (
-        <Link to={Routing.getPostPath(item)}>
+        <Link to={{ pathname: Routing.getPostPath(item), item }}>
           <h1 className="display-4 secondfont mb-3 font-weight-bold">
             {title}
           </h1>
