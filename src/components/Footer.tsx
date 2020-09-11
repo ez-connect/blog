@@ -18,17 +18,13 @@ export class Footer extends React.PureComponent<any, Item<Issue>> {
 
   public render() {
     const data = Markdown.parse(this.state.item?.body);
+    const { copyright, license } = data;
     return (
       <div className="container mt-5">
         <footer className="bg-white border-top p-3 text-muted small">
           <div className="row align-items-center justify-content-between">
-            <div>
-              <span className="navbar-brand mr-2">
-                <strong>{data.title?.raw}</strong>
-              </span>
-              {data.copyright?.raw}
-            </div>
-            <div dangerouslySetInnerHTML={{ __html: data.license?.raw }} />
+            <div>{copyright?.raw}</div>
+            <div dangerouslySetInnerHTML={{ __html: license?.raw }} />
           </div>
         </footer>
       </div>
