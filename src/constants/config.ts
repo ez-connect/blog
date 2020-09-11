@@ -11,12 +11,27 @@ export const config = {
     },
   },
   specicalLabel: {
+    // Specific label for data type, can change to match your labels
     nav: 'nav',
     header: 'header',
     footer: 'footer',
     single: 'single',
     post: 'post',
     pin: 'pin',
+
+    // System labels, or labels will be hidden
+    documentation: 'documentation',
+    duplicate: 'duplicate',
+    enhancement: 'enhancement',
+    'good first issue': 'good first issue',
+    'help wanted': 'help wanted',
+    invalid: 'invalid',
+    question: 'question',
+    wontfix: 'wontfix',
+  },
+  // Condition, default is closed issues
+  condition: {
+    state: 'closed',
   },
   router: {
     home: '/',
