@@ -1,29 +1,34 @@
-const kBaseURL = 'https://gitlab.com/api/v4/projects/19915911';
+import { Config } from '~/models';
 
-export const config = {
-  baseURL: kBaseURL,
-  fetchConfig: {
+const kBaseURL = 'https://gitlab.com/api/v4/projects/21093243';
+
+export const config: Config = {
+  service: {
+    name: 'GitLab',
     baseURL: kBaseURL,
-    timeout: 10000,
-    headers: {
-      'Content-Type': 'application/json',
-      // Authorization: 'Private-Token xyz',
+    rest: {
+      baseURL: kBaseURL,
+      timeout: 10000,
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Private-Token': 'blah blah blah',
+      },
     },
+    authorization: {
+      clientId: '1018088c847a3f5328f5',
+      directUri: 'http://localhost:3000/auth',
+    },
+    systemLabels: [],
+    // condition: {
+    //   state: 'closed',
+    // },
   },
   labels: {
-    data: {
-      nav: 'nav',
-      header: 'header',
-      footer: 'footer',
-      single: 'single',
-      post: 'post',
-      pin: 'pin',
-    },
-    system: [],
-  },
-  // Condition, default is closed issues
-  condition: {
-    state: 'closed',
+    nav: 'nav',
+    header: 'header',
+    footer: 'footer',
+    post: 'post',
+    pin: 'pin',
   },
   router: {
     home: '/',

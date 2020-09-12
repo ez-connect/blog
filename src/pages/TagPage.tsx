@@ -8,7 +8,7 @@ import {
   ScrollToTop,
 } from '~/components';
 import { Issue, Label } from '~/models';
-import { GitHub } from '~/services';
+import { Service } from '~/services';
 import { Routing } from '~/utils';
 
 interface State {
@@ -70,11 +70,11 @@ export class TagPage extends React.Component<any, State> {
   private async _load(item: Label) {
     if (!item) {
       const name = Routing.getTagNameFromPath(this.props.match.params.id);
-      item = await GitHub.findOneLabel(name);
+      item = await Service.findOneLabel(name);
       this.setState({ item });
     }
 
-    const posts = await GitHub.findIssues({ labels: item.name });
+    const posts = await Service.findIssues({ labels: item.name });
     this.setState({ posts });
   }
 }

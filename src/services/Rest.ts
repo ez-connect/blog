@@ -1,13 +1,14 @@
 import Axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 
-import { config } from '~/configs';
-import { Logger, Routing } from '~/utils';
+import { Logger } from '~/utils';
 
 class Rest {
   private _axios: AxiosInstance;
+  private _config: AxiosRequestConfig;
 
-  constructor() {
-    this._axios = Axios.create(config.fetchConfig);
+  public init(config: AxiosRequestConfig) {
+    this._config = config;
+    this._axios = Axios.create(config);
   }
 
   ///////////////////////////////////////////////////////////////////
@@ -17,7 +18,7 @@ class Rest {
    * @param token
    */
   public setAuthorization(token: string) {
-    const { headers } = config.fetchConfig;
+    const { headers } = this._config;
     this._axios.defaults.headers = {
       ...headers,
       Authorization: `Bearer ${token}`,
@@ -28,16 +29,16 @@ class Rest {
 
   public async get<T>(url: string, cfg?: AxiosRequestConfig): Promise<T> {
     Logger.debug('GET', url);
-    try {
-      const res = await this._axios.get<T>(url, cfg);
-      return res.data;
-    } catch (err) {
-      if (this.isUnauthorized(err)) {
-        Routing.push(config.router.signIn);
-      }
+    // try {
+    const res = await this._axios.get<T>(url, cfg);
+    return res.data;
+    // } catch (err) {
+    //   if (this.isUnauthorized(err)) {
+    //     Routing.push(this._config.router.signIn);
+    //   }
 
-      throw err;
-    }
+    //   throw err;
+    // }
   }
 
   ///////////////////////////////////////////////////////////////////
@@ -59,13 +60,13 @@ class Rest {
     return 200;
   }
 
-  public isUnauthorized(err: AxiosError) {
-    if (this.getCode(err) === 401) {
-      return true;
-    }
+  // public isUnauthorized(err: AxiosError) {
+  //   if (this.getCode(err) === 401) {
+  //     return true;
+  //   }
 
-    return false;
-  }
+  //   return false;
+  // }
 }
 
 const singleton = new Rest();

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { config } from '~/configs';
 import { Issue, Item } from '~/models';
 import { Label } from '~/models/label';
-import { GitHub } from '~/services';
+import { Service } from '~/services';
 import { Markdown, Routing } from '~/utils';
 
 export class NavBar extends React.PureComponent<any, Item<Issue>> {
@@ -52,7 +52,8 @@ export class NavBar extends React.PureComponent<any, Item<Issue>> {
   }
 
   private _renderSignIn() {
-    if (!config.authorization) {
+    const { authorization } = config.service;
+    if (!authorization) {
       return null;
     }
 
@@ -60,10 +61,7 @@ export class NavBar extends React.PureComponent<any, Item<Issue>> {
       <ul
         className="navbar-nav ml-auto d-flex align-items-center"
         onClick={() =>
-          GitHub.signIn(
-            config.authorization.clientId,
-            config.authorization.directUri,
-          )
+          Service.signIn(authorization.clientId, authorization.directUri)
         }
       >
         <li className="nav-item highlight">
@@ -75,9 +73,7 @@ export class NavBar extends React.PureComponent<any, Item<Issue>> {
 
   private async _load() {
     if (!NavBar._item) {
-      const items = await GitHub.findIssues({
-        labels: config.labels.data.nav,
-      });
+      const items = await Service.findIssuesByLabel(config.labels.nav);
       if (items.length > 0) {
         NavBar._item = items[0];
       }

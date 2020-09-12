@@ -3,29 +3,22 @@ import { Config } from '~/models';
 const kBaseURL = 'https://api.github.com/repos/ez-connect/blog';
 
 export const config: Config = {
-  baseURL: kBaseURL,
-  fetchConfig: {
+  service: {
+    name: 'GitHub',
     baseURL: kBaseURL,
-    timeout: 10000,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'token 7605d0407d6cffa76e024a178b1fe9cf1d479ec0',
+    rest: {
+      baseURL: kBaseURL,
+      timeout: 10000,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'token 7605d0407d6cffa76e024a178b1fe9cf1d479ec0',
+      },
     },
-  },
-  authorization: {
-    clientId: '1018088c847a3f5328f5',
-    directUri: 'http://localhost:3000/auth',
-  },
-  labels: {
-    data: {
-      nav: 'nav',
-      header: 'header',
-      footer: 'footer',
-      single: 'single',
-      post: 'post',
-      pin: 'pin',
+    authorization: {
+      clientId: '1018088c847a3f5328f5',
+      directUri: 'http://localhost:3000/auth',
     },
-    system: [
+    systemLabels: [
       'documentation',
       'duplicate',
       'enhancement',
@@ -35,9 +28,16 @@ export const config: Config = {
       'question',
       'wontfix',
     ],
+    // condition: {
+    //   state: 'closed',
+    // },
   },
-  condition: {
-    state: 'closed',
+  labels: {
+    nav: 'nav',
+    header: 'header',
+    footer: 'footer',
+    post: 'post',
+    pin: 'pin',
   },
   router: {
     home: '/',

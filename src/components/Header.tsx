@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { config } from '~/configs';
 import { Issue, Item } from '~/models';
-import { GitHub } from '~/services';
+import { Service } from '~/services';
 import { Markdown } from '~/utils';
 
 export class Header extends React.PureComponent<any, Item<Issue>> {
@@ -45,9 +45,7 @@ export class Header extends React.PureComponent<any, Item<Issue>> {
   }
 
   private async _load() {
-    const items = await GitHub.findIssues({
-      labels: config.labels.data.header,
-    });
+    const items = await Service.findIssuesByLabel(config.labels.header);
     if (items.length > 0) {
       this.setState({ item: items[0] });
     }

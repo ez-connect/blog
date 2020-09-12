@@ -1,15 +1,18 @@
-import { config } from '~/configs';
-import { Issue, Label, User } from '~/models';
+import { Issue, Label, ServiceConfig, User } from '~/models';
 
 import { Rest } from './Rest';
 
-export interface IssueParams {
+interface QueryParams {
   // Indicates the state of the issues to return. Can be either open, closed, or all.
   state?: 'open' | 'closed' | 'all';
   // The user that created the issue
   creator?: string;
   // A list of comma separated label names. Example: bug,ui,@high
   labels?: string;
+
+  // GitLab
+  label?: string;
+
   // What to sort results by. Can be either created, updated, comments.
   sort?: 'created' | 'updated' | 'comments';
   // The direction of the sort. Can be either asc or desc.
@@ -25,7 +28,13 @@ export interface IssueParams {
   page?: number;
 }
 
-class GitHub {
+class Service {
+  private _config?: ServiceConfig;
+
+  public init(value: ServiceConfig) {
+    this._config = value;
+  }
+
   public signIn(clientId: string, directUri: string) {
     const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${directUri}`;
     window.open(url);
@@ -45,8 +54,8 @@ class GitHub {
   }
 
   public async countIssuesByLabel(value: string): Promise<number> {
-    // const labels = [config.labels.data.post, value].join(',');
-    const params: IssueParams = { labels: value, per_page: 1 };
+    // const labels = [this._config.labels.data.post, value].join(',');
+    const params: QueryParams = { labels: value, per_page: 1 };
     const items = await Rest.get<Issue[]>('/issues', { params });
     if (items.length > 0) {
       return items[0].number;
@@ -55,14 +64,24 @@ class GitHub {
     return 0;
   }
 
-  public async findIssues(params?: IssueParams): Promise<Issue[]> {
-    Object.assign(params, config.condition);
+  public async findIssues(params?: QueryParams): Promise<Issue[]> {
+    if (this._config.condition) {
+      Object.assign(params, this._config.condition);
+    }
+
     const items = await Rest.get<Issue[]>('/issues', { params });
     for (const e of items) {
       e.labels = this._removeSpecificLabel(e.labels);
     }
 
     return items;
+  }
+
+  public async findIssuesByLabel(value: string): Promise<Issue[]> {
+    const params =
+      this._config.name === 'GitHub' ? { labels: value } : { label: value };
+    Object.assign(params, this._config.condition);
+    return this.findIssues(params);
   }
 
   public async findOneIssue(number: number): Promise<Issue> {
@@ -72,9 +91,11 @@ class GitHub {
   }
 
   private _removeSpecificLabel(value: Label[]): Label[] {
-    return value.filter((e) => !config.labels.data.hasOwnProperty(e.name));
+    return value.filter(
+      (e) => !this._config.systemLabels.hasOwnProperty(e.name),
+    );
   }
 }
 
-const singleton = new GitHub();
-export { singleton as GitHub };
+const singleton = new Service();
+export { singleton as Service };

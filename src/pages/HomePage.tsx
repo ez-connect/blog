@@ -10,7 +10,7 @@ import {
 } from '~/components';
 import { config } from '~/configs';
 import { Issue, Label } from '~/models';
-import { GitHub } from '~/services';
+import { Service } from '~/services';
 
 interface State {
   pinPosts: Issue[];
@@ -56,16 +56,16 @@ export class HomePage extends React.PureComponent<any, State> {
   }
 
   private async _load() {
-    const pinPosts = await GitHub.findIssues({
-      labels: [config.labels.data.post, config.labels.data.pin].join(','),
+    const pinPosts = await Service.findIssues({
+      labels: [config.labels.post, config.labels.pin].join(','),
       sort: 'updated',
       direction: 'desc',
     });
 
     this.setState({ pinPosts });
 
-    const posts = await GitHub.findIssues({
-      labels: config.labels.data.post,
+    const posts = await Service.findIssues({
+      labels: config.labels.post,
       sort: 'updated',
       direction: 'desc',
     });

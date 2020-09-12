@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Label } from '~/models';
-import { GitHub } from '~/services';
+import { Service } from '~/services';
 import { Routing } from '~/utils';
 
 // interface Total {
@@ -52,7 +52,7 @@ export class TagList extends React.PureComponent<any, State> {
   }
 
   private async _load() {
-    const items = await GitHub.findLabels();
+    const items = await Service.findLabels();
     this.setState({ items });
   }
 }

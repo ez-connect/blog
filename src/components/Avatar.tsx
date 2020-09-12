@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Item, User } from '~/models';
-import { GitHub } from '~/services';
+import { Service } from '~/services';
 
 export class Avatar extends React.PureComponent<Item<User>, Item<User>> {
   private static _items: User[] = [];
@@ -40,7 +40,7 @@ export class Avatar extends React.PureComponent<Item<User>, Item<User>> {
     const { id, login, username } = item;
     let value = Avatar._items.find((e) => e.id === id);
     if (!value) {
-      value = await GitHub.findOneUser(login ?? username);
+      value = await Service.findOneUser(login ?? username);
       Avatar._items.push(value);
     }
 

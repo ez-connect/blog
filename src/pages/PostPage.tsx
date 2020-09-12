@@ -8,7 +8,7 @@ import {
   ScrollToTop,
 } from '~/components';
 import { Issue, Item } from '~/models';
-import { GitHub } from '~/services';
+import { Service } from '~/services';
 import { Routing } from '~/utils';
 
 export class PostPage extends React.PureComponent<any, Item<Issue>> {
@@ -44,7 +44,7 @@ export class PostPage extends React.PureComponent<any, Item<Issue>> {
     let { item } = this.props;
     if (!item) {
       const id = Routing.getPostIdFromPath(this.props.match.params.id);
-      item = await GitHub.findOneIssue(id);
+      item = await Service.findOneIssue(id);
       this.setState({ item });
     }
   }
