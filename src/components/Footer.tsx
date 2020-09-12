@@ -2,7 +2,7 @@ import './styles.css';
 
 import React from 'react';
 
-import { config } from '~/constants';
+import { config } from '~/configs';
 import { Issue, Item } from '~/models';
 import { GitHub } from '~/services';
 import { Markdown } from '~/utils';
@@ -34,7 +34,7 @@ export class Footer extends React.PureComponent<any, Item<Issue>> {
   private async _load() {
     if (!Footer._item) {
       const items = await GitHub.findIssues({
-        labels: config.specicalLabel.footer,
+        labels: config.labels.data.footer,
       });
       if (items.length > 0) {
         Footer._item = items[0];

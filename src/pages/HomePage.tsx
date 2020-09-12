@@ -8,7 +8,7 @@ import {
   PostList,
   TagList,
 } from '~/components';
-import { config } from '~/constants';
+import { config } from '~/configs';
 import { Issue, Label } from '~/models';
 import { GitHub } from '~/services';
 
@@ -57,7 +57,7 @@ export class HomePage extends React.PureComponent<any, State> {
 
   private async _load() {
     const pinPosts = await GitHub.findIssues({
-      labels: [config.specicalLabel.post, config.specicalLabel.pin].join(','),
+      labels: [config.labels.data.post, config.labels.data.pin].join(','),
       sort: 'updated',
       direction: 'desc',
     });
@@ -65,7 +65,7 @@ export class HomePage extends React.PureComponent<any, State> {
     this.setState({ pinPosts });
 
     const posts = await GitHub.findIssues({
-      labels: config.specicalLabel.post,
+      labels: config.labels.data.post,
       sort: 'updated',
       direction: 'desc',
     });

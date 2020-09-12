@@ -1,4 +1,4 @@
-import { config } from '~/constants';
+import { config } from '~/configs';
 import { Issue, Label, User } from '~/models';
 
 import { Rest } from './Rest';
@@ -40,7 +40,7 @@ class GitHub {
   }
 
   public async countIssuesByLabel(value: string): Promise<number> {
-    // const labels = [config.specicalLabel.post, value].join(',');
+    // const labels = [config.labels.data.post, value].join(',');
     const params: IssueParams = { labels: value, per_page: 1 };
     const items = await Rest.get<Issue[]>('/issues', { params });
     if (items.length > 0) {
@@ -67,7 +67,7 @@ class GitHub {
   }
 
   private _removeSpecificLabel(value: Label[]): Label[] {
-    return value.filter((e) => !config.specicalLabel.hasOwnProperty(e.name));
+    return value.filter((e) => !config.labels.data.hasOwnProperty(e.name));
   }
 }
 

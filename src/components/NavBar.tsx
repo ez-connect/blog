@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { config } from '~/constants';
+import { config } from '~/configs';
 import { Issue, Item } from '~/models';
 import { Label } from '~/models/label';
 import { GitHub } from '~/services';
@@ -52,7 +52,7 @@ export class NavBar extends React.PureComponent<any, Item<Issue>> {
   private async _load() {
     if (!NavBar._item) {
       const items = await GitHub.findIssues({
-        labels: config.specicalLabel.nav,
+        labels: config.labels.data.nav,
       });
       if (items.length > 0) {
         NavBar._item = items[0];

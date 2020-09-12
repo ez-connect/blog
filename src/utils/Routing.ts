@@ -1,7 +1,7 @@
 import { createBrowserHistory } from 'history';
 import slugify from 'slugify';
 
-import { config } from '~/constants';
+import { config } from '~/configs';
 import { Issue, Label } from '~/models';
 
 import { Base64 } from './Base64';

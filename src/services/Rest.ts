@@ -1,6 +1,6 @@
 import Axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 
-import { config } from '~/constants';
+import { config } from '~/configs';
 import { Logger, Routing } from '~/utils';
 
 class Rest {
