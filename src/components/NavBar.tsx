@@ -42,10 +42,34 @@ export class NavBar extends React.PureComponent<any, Item<Issue>> {
               <ul className="navbar-nav mr-auto d-flex align-items-center">
                 {this._renderTagList(labels)}
               </ul>
+
+              {this._renderSignIn()}
             </div>
           </div>
         </nav>
       </>
+    );
+  }
+
+  private _renderSignIn() {
+    if (!config.authorization) {
+      return null;
+    }
+
+    return (
+      <ul
+        className="navbar-nav ml-auto d-flex align-items-center"
+        onClick={() =>
+          GitHub.signIn(
+            config.authorization.clientId,
+            config.authorization.directUri,
+          )
+        }
+      >
+        <li className="nav-item highlight">
+          <span className="nav-link btn">Sign in</span>
+        </li>
+      </ul>
     );
   }
 

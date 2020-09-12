@@ -26,6 +26,11 @@ export interface IssueParams {
 }
 
 class GitHub {
+  public signIn(clientId: string, directUri: string) {
+    const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${directUri}`;
+    window.open(url);
+  }
+
   public async findOneUser(username: string): Promise<User> {
     return await Rest.get<User>(`https://api.github.com/users/${username}`);
   }
