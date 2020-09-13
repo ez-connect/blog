@@ -18,7 +18,7 @@ export class Avatar extends React.PureComponent<Item<User>, Item<User>> {
   public render() {
     const { children } = this.props;
     const { item } = this.state;
-    const { avatar_url, name } = item;
+    const { avatar_url, login, name } = item;
     return (
       <div className="d-flex align-items-center">
         <img
@@ -28,7 +28,7 @@ export class Avatar extends React.PureComponent<Item<User>, Item<User>> {
           alt={name}
         />
         <small className="ml-2">
-          {name} in &nbsp;
+          {name ?? login} in &nbsp;
           {children}
         </small>
       </div>
@@ -36,14 +36,18 @@ export class Avatar extends React.PureComponent<Item<User>, Item<User>> {
   }
 
   private async _load() {
-    const { item } = this.props;
-    const { id, login, username } = item;
-    let value = Avatar._items.find((e) => e.id === id);
-    if (!value) {
-      value = await Service.findOneUser(login ?? username);
-      Avatar._items.push(value);
-    }
+    let { item } = this.props;
+    const { id, login, username, name } = item;
 
-    this.setState({ item: value });
+    // GitHub only
+    if (!name) {
+      item = Avatar._items.find((e) => e.id === id);
+      if (!item) {
+        item = await Service.findOneUser(login ?? username);
+        Avatar._items.push(item);
+      }
+
+      this.setState({ item });
+    }
   }
 }

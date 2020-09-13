@@ -9,11 +9,13 @@ import { HomePage, PostPage } from './pages';
 import { TagPage } from './pages/TagPage';
 import { Service } from './services';
 import { Rest } from './services/Rest';
+import { Routing } from './utils';
 
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
     Rest.init(config.service.rest);
+    Rest.on(Rest.kOnUnauthorized, this._onUnauthorized);
     Service.init(config.service);
   }
 
@@ -29,6 +31,10 @@ class App extends React.PureComponent {
         </Switch>
       </BrowserRouter>
     );
+  }
+
+  private _onUnauthorized() {
+    Routing.push(config.router.signIn);
   }
 }
 

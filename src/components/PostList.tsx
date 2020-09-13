@@ -20,9 +20,9 @@ export class PostList extends React.PureComponent<ItemList<Issue>> {
           <span>Latest</span>
         </h5>
         {items.map((item) => {
-          const { number, title, body, labels, user, updated_at } = item;
+          const { id, title, body, labels, user, updated_at } = item;
           return (
-            <div key={number} className="mb-3 d-flex justify-content-between">
+            <div key={id} className="mb-3 d-flex justify-content-between">
               <div className="pr-3">
                 <h2 className="mb-1 h4 font-weight-bold">
                   <Link

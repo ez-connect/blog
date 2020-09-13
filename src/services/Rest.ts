@@ -1,8 +1,11 @@
 import Axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
+import { EventEmitter } from 'events';
 
 import { Logger } from '~/utils';
 
-class Rest {
+class Rest extends EventEmitter {
+  public kOnUnauthorized = 'onUnauthorized';
+
   private _axios: AxiosInstance;
   private _config: AxiosRequestConfig;
 
@@ -29,16 +32,16 @@ class Rest {
 
   public async get<T>(url: string, cfg?: AxiosRequestConfig): Promise<T> {
     Logger.debug('GET', url);
-    // try {
-    const res = await this._axios.get<T>(url, cfg);
-    return res.data;
-    // } catch (err) {
-    //   if (this.isUnauthorized(err)) {
-    //     Routing.push(this._config.router.signIn);
-    //   }
+    try {
+      const res = await this._axios.get<T>(url, cfg);
+      return res.data;
+    } catch (err) {
+      if (this.isUnauthorized(err)) {
+        this.emit(this.kOnUnauthorized);
+      }
 
-    //   throw err;
-    // }
+      throw err;
+    }
   }
 
   ///////////////////////////////////////////////////////////////////
@@ -60,13 +63,13 @@ class Rest {
     return 200;
   }
 
-  // public isUnauthorized(err: AxiosError) {
-  //   if (this.getCode(err) === 401) {
-  //     return true;
-  //   }
+  public isUnauthorized(err: AxiosError) {
+    if (this.getCode(err) === 401) {
+      return true;
+    }
 
-  //   return false;
-  // }
+    return false;
+  }
 }
 
 const singleton = new Rest();

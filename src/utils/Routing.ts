@@ -37,7 +37,7 @@ class Routing {
 
   public getPostPath(value: Issue): string {
     const slug = slugify(value.title, { lower: true });
-    const id = value.number ?? value.iid;
+    const id = value.id;
     return `${config.router.posts}/${slug}-${id}`;
   }
 

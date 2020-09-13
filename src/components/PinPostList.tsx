@@ -73,6 +73,6 @@ export class PinPostList extends React.PureComponent<ItemList<Issue>> {
   private _renderPosts() {
     const { items } = this.props;
     const remainItems = items.slice(1);
-    return remainItems.map((v) => <PinPost key={v.number} item={v} />);
+    return remainItems.map((v) => <PinPost key={v.id} item={v} />);
   }
 }

@@ -26,7 +26,10 @@ export class ServiceBase {
   ///////////////////////////////////////////////////////////////////
 
   public signIn(clientId: string, directUri: string) {
-    const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${directUri}`;
+    const url =
+      this.config.name === 'GitHub'
+        ? `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${directUri}`
+        : `https://gitlab.com/oauth/authorize?client_id=${clientId}&redirect_uri=${directUri}&response_type=code&scope=profile`;
     window.open(url);
   }
 
@@ -59,15 +62,15 @@ export class ServiceBase {
     return Rest.get<Label>(`labels/${value}`);
   }
 
-  protected async countIssuesByLabel(value: string): Promise<number> {
-    const params = this._buildParams({ labels: value, size: 1 });
-    const items = await Rest.get<Issue[]>('/issues', { params });
-    if (items.length > 0) {
-      return items[0].number;
-    }
+  // protected async countIssuesByLabel(value: string): Promise<number> {
+  //   const params = this._buildParams({ labels: value, size: 1 });
+  //   const items = await Rest.get<Issue[]>('/issues', { params });
+  //   if (items.length > 0) {
+  //     return items[0].number;
+  //   }
 
-    return 0;
-  }
+  //   return 0;
+  // }
 
   ///////////////////////////////////////////////////////////////////
 
@@ -145,9 +148,13 @@ export class ServiceBase {
       value.body = value.description;
       value.user = value.author;
 
+      // value.body = value.description.replaceAll(
+      //   /(!\[.*\]\()(\/uploads\/.*\))/g,
+      //   '$1' + this.config.webBaseURL + '$2',
+      // );
       value.body = value.description.replaceAll(
-        /!?\[.*\]\((\/uploads.*\/.*\))/g,
-        '$1' + this.config.webBaseURL + '$2',
+        '(/uploads/',
+        `(${this.config.webBaseURL}/uploads/`,
       );
     }
 
