@@ -8,8 +8,6 @@ import { Service } from '~/services';
 import { Markdown, Routing } from '~/utils';
 
 export class NavBar extends React.PureComponent<any, Item<Issue>> {
-  private static _item?: Issue;
-
   public state: Item<Issue> = {};
 
   public componentDidMount() {
@@ -72,13 +70,8 @@ export class NavBar extends React.PureComponent<any, Item<Issue>> {
   }
 
   private async _load() {
-    if (!NavBar._item) {
-      const items = await Service.findIssuesByLabel(config.labels.nav);
-      if (items.length > 0) {
-        NavBar._item = items[0];
-      }
-    }
-    this.setState({ item: NavBar._item });
+    const item = await Service.findNav();
+    this.setState({ item });
   }
 
   private _renderTag(item: Label) {

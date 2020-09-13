@@ -17,10 +17,9 @@ interface State {
 }
 
 export class TagPage extends React.Component<any, State> {
-  constructor(props: any) {
-    super(props);
-    this.state = { item: props.location.item, posts: [] };
-  }
+  public state: State = {
+    posts: [],
+  };
 
   public componentDidMount() {
     this._load(this.props.location.item);
@@ -71,10 +70,12 @@ export class TagPage extends React.Component<any, State> {
     if (!item) {
       const name = Routing.getTagNameFromPath(this.props.match.params.id);
       item = await Service.findOneLabel(name);
-      this.setState({ item });
     }
 
-    const posts = await Service.findIssues({ labels: item.name });
+    this.setState({ item });
+
+
+    const posts = await Service.findPostsByLabel(item.name);
     this.setState({ posts });
   }
 }

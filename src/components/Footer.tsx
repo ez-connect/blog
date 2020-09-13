@@ -2,14 +2,11 @@ import './styles.css';
 
 import React from 'react';
 
-import { config } from '~/configs';
 import { Issue, Item } from '~/models';
 import { Service } from '~/services';
 import { Markdown } from '~/utils';
 
 export class Footer extends React.PureComponent<any, Item<Issue>> {
-  private static _item?: Issue;
-
   public state: Item<Issue> = {};
 
   public componentDidMount() {
@@ -32,13 +29,7 @@ export class Footer extends React.PureComponent<any, Item<Issue>> {
   }
 
   private async _load() {
-    if (!Footer._item) {
-      const items = await Service.findIssuesByLabel(config.labels.footer);
-      if (items.length > 0) {
-        Footer._item = items[0];
-      }
-    }
-
-    this.setState({ item: Footer._item });
+    const item = await Service.findFooter();
+    this.setState({ item });
   }
 }

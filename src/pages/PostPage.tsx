@@ -12,10 +12,7 @@ import { Service } from '~/services';
 import { Routing } from '~/utils';
 
 export class PostPage extends React.PureComponent<any, Item<Issue>> {
-  constructor(props: any) {
-    super(props);
-    this.state = { item: props.location.item };
-  }
+  public state: Item<Issue> = {};
 
   public componentDidMount() {
     this._load();
@@ -41,11 +38,12 @@ export class PostPage extends React.PureComponent<any, Item<Issue>> {
   }
 
   private async _load() {
-    let { item } = this.props;
+    let { item } = this.props.location;
     if (!item) {
       const id = Routing.getPostIdFromPath(this.props.match.params.id);
       item = await Service.findOneIssue(id);
-      this.setState({ item });
     }
+
+    this.setState({ item });
   }
 }

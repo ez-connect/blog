@@ -45,9 +45,7 @@ export class Header extends React.PureComponent<any, Item<Issue>> {
   }
 
   private async _load() {
-    const items = await Service.findIssuesByLabel(config.labels.header);
-    if (items.length > 0) {
-      this.setState({ item: items[0] });
-    }
+    const item = await Service.findHeader();
+    this.setState({ item });
   }
 }

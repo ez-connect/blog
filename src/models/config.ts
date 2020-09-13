@@ -9,24 +9,24 @@ export interface ServiceConfig {
     directUri: string;
   };
 
-  // System labels, or labels will be not a post's tags.
-  systemLabels: string[];
-
-  // Condition for fetching issues, default is closed issues
-  condition?: { [name: string]: any };
-}
-
-export interface Config {
-  service: ServiceConfig;
+  // Addition query params as default
+  queryParams?: { [name: string]: any };
 
   // Specific label for data type, can change to match your labels
   labels: {
     nav: string;
     header: string;
     footer: string;
+    // Describe all available tags
+    tags: string;
     post: string;
     pin: string;
   };
+}
+
+export interface Config {
+  // API service
+  service: ServiceConfig;
 
   // Routes
   router: { [name: string]: string };

@@ -8,7 +8,6 @@ import {
   PostList,
   TagList,
 } from '~/components';
-import { config } from '~/configs';
 import { Issue, Label } from '~/models';
 import { Service } from '~/services';
 
@@ -56,16 +55,13 @@ export class HomePage extends React.PureComponent<any, State> {
   }
 
   private async _load() {
-    const pinPosts = await Service.findIssues({
-      labels: [config.labels.post, config.labels.pin].join(','),
+    const pinPosts = await Service.findPinPosts({
       sort: 'updated',
       direction: 'desc',
     });
-
     this.setState({ pinPosts });
 
-    const posts = await Service.findIssues({
-      labels: config.labels.post,
+    const posts = await Service.findPosts({
       sort: 'updated',
       direction: 'desc',
     });

@@ -52,7 +52,7 @@ export class TagList extends React.PureComponent<any, State> {
   }
 
   private async _load() {
-    const items = await Service.findLabels();
-    this.setState({ items });
+    const issue = await Service.findTag();
+    this.setState({ items: issue.labels });
   }
 }

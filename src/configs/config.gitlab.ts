@@ -18,17 +18,17 @@ export const config: Config = {
       clientId: '1018088c847a3f5328f5',
       directUri: 'http://localhost:3000/auth',
     },
-    systemLabels: [],
     // condition: {
     //   state: 'closed',
     // },
-  },
-  labels: {
-    nav: 'nav',
-    header: 'header',
-    footer: 'footer',
-    post: 'post',
-    pin: 'pin',
+    labels: {
+      nav: 'nav',
+      header: 'header',
+      footer: 'footer',
+      tags: 'tag',
+      post: 'post',
+      pin: 'pin',
+    },
   },
   router: {
     home: '/',
