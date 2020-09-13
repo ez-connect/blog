@@ -20,7 +20,7 @@ class Markdown {
   }
 
   // Remove all images all keep a short description from body
-  public getDescription(body?: string): string {
+  public getDescription(body: string): string {
     if (!body) {
       return '';
     }
@@ -28,7 +28,7 @@ class Markdown {
     return body.replaceAll(/!?\[.*\]\((http.*\/.*)\)/g, '');
   }
 
-  public getReadingTime(body?: string): string {
+  public getReadingTime(body: string): string {
     return readingTime(body).text;
   }
 }

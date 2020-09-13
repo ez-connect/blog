@@ -77,6 +77,7 @@ export class ServiceBase {
       params: this._buildParams(params),
     });
     for (const e of items) {
+      this._convertToGitHubIssue(e);
       e.labels = this._removeSpecificLabel(e.labels);
     }
 
@@ -107,6 +108,7 @@ export class ServiceBase {
 
   protected async findOneIssue(number: number): Promise<Issue> {
     const item = await Rest.get<Issue>(`/issues/${number}`);
+    this._convertToGitHubIssue(item);
     item.labels = this._removeSpecificLabel(item.labels);
     return item;
   }
@@ -115,7 +117,8 @@ export class ServiceBase {
     if (!this.issue.hasOwnProperty(value)) {
       const items = await this.findIssuesByLabel(value);
       if (items.length > 0) {
-        this.issue[value] = items[0];
+        const item = items[0];
+        this.issue[value] = item;
       } else {
         throw Error(`Not found: ${value}`);
       }
@@ -132,6 +135,23 @@ export class ServiceBase {
     return this.config.name === 'GitHub'
       ? QueryBuilder.getGitHub(params)
       : QueryBuilder.getGitLab(params);
+  }
+
+  // The same format as GitHub
+  private _convertToGitHubIssue(value: Issue) {
+    value.id = value.number ?? value.iid;
+
+    if (this.config.name === 'GitLab') {
+      value.body = value.description;
+      value.user = value.author;
+
+      value.body = value.description.replaceAll(
+        /!?\[.*\]\((\/uploads.*\/.*\))/g,
+        '$1' + this.config.webBaseURL + '$2',
+      );
+    }
+
+    return value;
   }
 
   private _removeSpecificLabel(value: Label[]): Label[] {

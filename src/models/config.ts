@@ -3,6 +3,7 @@ import { AxiosRequestConfig } from 'axios';
 export interface ServiceConfig {
   name: 'GitHub' | 'GitLab';
   baseURL: string;
+  webBaseURL: string;
   rest?: AxiosRequestConfig;
   authorization?: {
     clientId: string;

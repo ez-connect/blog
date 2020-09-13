@@ -6,6 +6,7 @@ export const config: Config = {
   service: {
     name: 'GitHub',
     baseURL: kBaseURL,
+    webBaseURL: '',
     rest: {
       baseURL: kBaseURL,
       timeout: 10000,

@@ -6,6 +6,7 @@ export const config: Config = {
   service: {
     name: 'GitLab',
     baseURL: kBaseURL,
+    webBaseURL: 'https://gitlab.com/ez-connect/blog',
     rest: {
       baseURL: kBaseURL,
       timeout: 10000,
