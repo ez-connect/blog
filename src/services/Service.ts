@@ -1,6 +1,7 @@
 import { Issue, Label, ServiceConfig, User } from '~/models';
 
-import { QueryParams } from './query';
+import { GitHubQueryParams, GitLabQueryParams, QueryParams } from './query';
+import { QueryBuilder } from './QueryBuilder';
 import { Rest } from './Rest';
 
 class Service {
@@ -10,8 +11,15 @@ class Service {
   // Caching one issue of specific labels
   private _issue: { [key: string]: Issue } = {};
 
+  // Caching all labels
+  private _labels: Label[] = [];
+
   public init(value: ServiceConfig) {
+    // Reset cache
     this._issue = {};
+    this._labels = [];
+
+    // Assign new config
     this._config = value;
   }
 
@@ -29,8 +37,12 @@ class Service {
   ///////////////////////////////////////////////////////////////////
 
   public async findLabels(): Promise<Label[]> {
-    const items = await Rest.get<Label[]>('labels');
-    return this._removeSpecificLabel(items);
+    if (this._labels.length === 0) {
+      const items = await Rest.get<Label[]>('labels');
+      this._labels = this._removeSpecificLabel(items);
+    }
+
+    return this._labels;
   }
 
   public async findOneLabel(name: string): Promise<Label> {
@@ -38,8 +50,7 @@ class Service {
   }
 
   public async countIssuesByLabel(value: string): Promise<number> {
-    // const labels = [this._config.labels.data.post, value].join(',');
-    const params: QueryParams = { labels: value, per_page: 1 };
+    const params = this._buildParams({ labels: value, size: 1 });
     const items = await Rest.get<Issue[]>('/issues', { params });
     if (items.length > 0) {
       return items[0].number;
@@ -52,9 +63,21 @@ class Service {
 
   public async findIssues(params?: QueryParams): Promise<Issue[]> {
     Object.assign(params, this._config.queryParams);
-    const items = await Rest.get<Issue[]>('/issues', { params });
+    const items = await Rest.get<Issue[]>('/issues', {
+      params: this._buildParams(params),
+    });
     for (const e of items) {
       e.labels = this._removeSpecificLabel(e.labels);
+    }
+
+    // GitLab has label name only
+    // Assign full for compatible with GitHub
+    if (this._config.name === 'GitLab' && this._labels.length === 0) {
+      const labels = await this.findLabels();
+      for (const item of items) {
+        const names: string[] = item.labels as any;
+        item.labels = labels.filter((e) => names.includes(e.name));
+      }
     }
 
     return items;
@@ -126,6 +149,14 @@ class Service {
   }
 
   ///////////////////////////////////////////////////////////////////
+
+  private _buildParams(
+    params?: QueryParams,
+  ): GitHubQueryParams | GitLabQueryParams {
+    return this._config.name === 'GitLab'
+      ? QueryBuilder.getGitHub(params)
+      : QueryBuilder.getGitLab(params);
+  }
 
   private _removeSpecificLabel(value: Label[]): Label[] {
     return value.filter((e) => !this._config.labels.hasOwnProperty(e.name));
