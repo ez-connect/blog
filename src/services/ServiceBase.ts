@@ -33,6 +33,29 @@ export class ServiceBase {
     window.open(url);
   }
 
+  public async getAccessToken(code: string): Promise<string> {
+    const { clientId, clientSecret, directUri } = this.config.authorization;
+    const params = {
+      client_id: clientId,
+      client_secret: clientSecret,
+      code,
+      grant_type: 'authorization_code',
+      redirect_uri: directUri,
+    };
+
+    try {
+      const res = await Rest.post<any>(
+        'https://gitlab.com/oauth/token',
+        undefined,
+        { params },
+      );
+      return res.access_token;
+    } catch (err) {
+      localStorage.setItem('error', JSON.stringify(err));
+      throw err;
+    }
+  }
+
   public async findOneUser(username: string): Promise<User> {
     return await Rest.get<User>(`https://api.github.com/users/${username}`);
   }

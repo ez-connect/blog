@@ -7,6 +7,7 @@ export interface ServiceConfig {
   rest?: AxiosRequestConfig;
   authorization?: {
     clientId: string;
+    clientSecret: string;
     directUri: string;
   };
 

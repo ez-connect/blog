@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ScrollMemory from 'react-router-scroll-memory';
 
 import { config } from './configs';
-import { HomePage, PostPage } from './pages';
+import { AuthPage, HomePage, PostPage } from './pages';
 import { TagPage } from './pages/TagPage';
 import { Service } from './services';
 import { Rest } from './services/Rest';
@@ -26,6 +26,7 @@ class App extends React.PureComponent {
         <Switch>
           <Route path={`${config.router.tags}/:id`} component={TagPage} />
           <Route path={`${config.router.posts}/:id`} component={PostPage} />
+          <Route path={config.router.auth} component={AuthPage} />
 
           <Route path={config.router.home} component={HomePage} />
         </Switch>

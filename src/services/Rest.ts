@@ -44,6 +44,15 @@ class Rest extends EventEmitter {
     }
   }
 
+  public async post<T>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): Promise<T> {
+    const res = await this._axios.post<T>(url, data, config);
+    return res.data;
+  }
+
   ///////////////////////////////////////////////////////////////////
 
   public getCode(err: AxiosError): number {

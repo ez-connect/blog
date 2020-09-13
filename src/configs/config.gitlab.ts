@@ -17,7 +17,9 @@ export const config: Config = {
     },
     authorization: {
       clientId:
-        'af1aa7768f5337f58aa7eb9eb9ac864a84f99ddad53790b34fef1cd938bf6f23',
+        'b47877cbd1266f62248380e8ed04fecd2e58b676bdcb4a604d245291da78e111',
+      clientSecret:
+        'c9e20578e161e29be4d46c9a340e75e95441492be5e508290127c56c5465495d',
       directUri: 'http://localhost:3000/auth',
     },
     // condition: {
@@ -38,5 +40,6 @@ export const config: Config = {
     tags: '/tags',
     posts: '/posts',
     users: '/users',
+    auth: '/auth',
   },
 };
