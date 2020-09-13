@@ -57,13 +57,13 @@ export class HomePage extends React.PureComponent<any, State> {
   private async _load() {
     const pinPosts = await Service.findPinPosts({
       sort: 'updated',
-      order: 'desc',
+      // order: 'desc',
     });
     this.setState({ pinPosts });
 
     const posts = await Service.findPosts({
-      sort: 'updated',
-      order: 'desc',
+      // sort: 'updated',
+      // order: 'desc',
     });
     this.setState({ posts });
   }

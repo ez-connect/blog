@@ -21,8 +21,13 @@ class QueryBuilder {
       state: state,
       author_username: author,
       labels,
-      sort,
-      order_by: order,
+      sort: order,
+      order_by:
+        sort === 'updated'
+          ? 'updated_at'
+          : sort === 'created'
+          ? 'created_at'
+          : undefined,
       updated_after: since,
       per_page: size,
       page,

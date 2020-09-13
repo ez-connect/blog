@@ -41,7 +41,7 @@ export class PostPage extends React.PureComponent<any, Item<Issue>> {
     let { item } = this.props.location;
     if (!item) {
       const id = Routing.getPostIdFromPath(this.props.match.params.id);
-      item = await Service.findOneIssue(id);
+      item = await Service.findOnePost(id);
     }
 
     this.setState({ item });

@@ -7,7 +7,7 @@ export interface GitHubQueryParams {
   labels?: string;
 
   // What to sort results by. Can be either created, updated, comments.
-  sort?: 'created' | 'updated' | 'comments';
+  sort?: 'created' | 'updated';
   // The direction of the sort. Can be either asc or desc.
   direction?: 'asc' | 'desc';
 
@@ -30,9 +30,9 @@ export interface GitLabQueryParams {
   labels?: string;
 
   // Return issues sorted in asc or desc order, default is desc
-  sort?: 'created' | 'updated';
+  sort?: 'asc' | 'desc';
   // The direction of the sort. Can be either asc or desc.
-  order_by?: 'asc' | 'desc';
+  order_by?: 'created_at' | 'updated_at';
 
   // Only issues updated at or after this time are returned.
   // This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.

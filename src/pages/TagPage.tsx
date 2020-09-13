@@ -69,11 +69,10 @@ export class TagPage extends React.Component<any, State> {
   private async _load(item: Label) {
     if (!item) {
       const name = Routing.getTagNameFromPath(this.props.match.params.id);
-      item = await Service.findOneLabel(name);
+      item = { name };
     }
 
     this.setState({ item });
-
 
     const posts = await Service.findPostsByLabel(item.name);
     this.setState({ posts });
