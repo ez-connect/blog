@@ -122,10 +122,10 @@ export class ServiceBase {
   }
 
   protected async findIssuesByLabel(
-    value: string,
+    value: string[],
     params?: QueryParams,
   ): Promise<Issue[]> {
-    params = { ...params, labels: value };
+    params = { ...params, labels: value.join(',') };
     Object.assign(params, this.config.queryParams);
     return this.findIssues(params);
   }
@@ -141,7 +141,7 @@ export class ServiceBase {
 
   protected async findOneIssuesByLabel(value: string): Promise<Issue> {
     if (!this.issue.hasOwnProperty(value)) {
-      const items = await this.findIssuesByLabel(value);
+      const items = await this.findIssuesByLabel([value]);
       if (items.length > 0) {
         const item = items[0];
         this.issue[value] = item;

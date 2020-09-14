@@ -21,15 +21,14 @@ class Service extends ServiceBase {
   }
 
   public async findPosts(params?: QueryParams): Promise<Issue[]> {
-    return this.findIssuesByLabel(this.config.labels.post, params);
+    return this.findIssuesByLabel([this.config.labels.post], params);
   }
 
   public async findPostsByLabel(
     value: string,
     params?: QueryParams,
   ): Promise<Issue[]> {
-    params = { ...params, labels: [value, this.config.labels.post].join(',') };
-    return this.findIssuesByLabel(this.config.labels.pin, params);
+    return this.findIssuesByLabel([this.config.labels.post, value], params);
   }
 
   public async findPinPosts(params?: QueryParams): Promise<Issue[]> {
