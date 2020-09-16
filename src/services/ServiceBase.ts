@@ -107,17 +107,6 @@ export class ServiceBase {
       e.labels = this._removeSpecificLabel(e.labels);
     }
 
-    // GitLab has label name only
-    // Assign full for compatible with GitHub
-    if (this.config.name === 'GitLab') {
-      for (const e of items) {
-        const names: string[] = e.labels as any;
-        e.labels = names.map((name) => ({
-          name,
-        }));
-      }
-    }
-
     return items;
   }
 
@@ -170,6 +159,13 @@ export class ServiceBase {
     if (this.config.name === 'GitLab') {
       value.body = value.description;
       value.user = value.author;
+
+      // GitLab has label name only
+      // Assign full for compatible with GitHub
+      const names: string[] = value.labels as any;
+      value.labels = names.map((name) => {
+        return { name };
+      });
 
       // value.body = value.description.replaceAll(
       //   /(!\[.*\]\()(\/uploads\/.*\))/g,

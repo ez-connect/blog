@@ -19,14 +19,15 @@ export class HorizonTagList extends React.PureComponent<Props> {
 
     return (
       <>
-        {items.map((e) => {
-          const { name } = e;
+        {items.map((item) => {
+          const { name } = item;
+          console.warn(name)
           return (
             <span key={name}>
               <Link
                 className="badge"
-                style={this._getBadgeStyle(e)}
-                to={Routing.getTagPath(e)}
+                style={this._getBadgeStyle(item)}
+                to={Routing.getTagPath(item)}
               >
                 {name}
               </Link>
@@ -39,8 +40,9 @@ export class HorizonTagList extends React.PureComponent<Props> {
   }
 
   private _getBadgeStyle(value: Label): React.CSSProperties {
+    const backgroundColor = value.color ? `#${value.color}` : '#808080';
     return {
-      backgroundColor: `#${value.color}`,
+      backgroundColor,
       color: 'white',
     };
   }
