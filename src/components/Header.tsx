@@ -1,12 +1,10 @@
 import './styles.css';
 
+import { Issue, Item, Markdown, Service } from 'git-cms-service';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { config } from '~/configs';
-import { Issue, Item } from '~/models';
-import { Service } from '~/services';
-import { Markdown } from '~/utils';
 
 export class Header extends React.PureComponent<any, Item<Issue>> {
   public state: Item<Issue> = {};

@@ -1,22 +1,19 @@
 import '~/assets/styles/main.css';
 
+import { Service } from 'git-cms-service';
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ScrollMemory from 'react-router-scroll-memory';
 
 import { config } from './configs';
-import { AuthPage, HomePage, PostPage } from './pages';
-import { TagPage } from './pages/TagPage';
-import { Service } from './services';
-import { Rest } from './services/Rest';
+import { AuthPage, HomePage, PostPage,TagPage } from './pages';
 import { Routing } from './utils';
 
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
-    Rest.init(config.service.rest);
-    Rest.on(Rest.kOnUnauthorized, this._onUnauthorized);
     Service.init(config.service);
+    Service.onUnauthorized(this._onUnauthorized);
   }
 
   public render() {

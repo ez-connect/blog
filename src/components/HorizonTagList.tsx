@@ -1,9 +1,9 @@
 import './styles.css';
 
+import { Label } from 'git-cms-service';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Label } from '~/models';
 import { Routing } from '~/utils';
 
 interface Props {

@@ -1,3 +1,4 @@
+import { Issue, Label, Routing,Service } from 'git-cms-service';
 import React from 'react';
 
 import {
@@ -7,9 +8,6 @@ import {
   PostHeader,
   ScrollToTop,
 } from '~/components';
-import { Issue, Label } from '~/models';
-import { Service } from '~/services';
-import { Routing } from '~/utils';
 
 interface State {
   item?: Label;

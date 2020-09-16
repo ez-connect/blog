@@ -15,6 +15,7 @@
   "dependencies": {
     "axios": "^0.20.0",
     "buffer": "^5.6.0",
+    "git-cms-service": "https://github.com/ez-connect/git-cms-service",
     "history": "^5.0.0",
     "md-2-json": "^1.0.6",
     "react": "^16.13.1",

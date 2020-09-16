@@ -1,10 +1,10 @@
 import './styles.css';
 
+import { Issue } from 'git-cms-service';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import { CodeBlock } from '~/components';
-import { Issue } from '~/models';
 
 interface Props {
   item: Issue;

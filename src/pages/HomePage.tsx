@@ -1,3 +1,4 @@
+import { Issue, Label, Service } from 'git-cms-service';
 import React from 'react';
 
 import {
@@ -8,8 +9,6 @@ import {
   PostList,
   TagList,
 } from '~/components';
-import { Issue, Label } from '~/models';
-import { Service } from '~/services';
 
 interface State {
   pinPosts: Issue[];

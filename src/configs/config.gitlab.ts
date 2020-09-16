@@ -1,4 +1,4 @@
-import { Config } from '~/models';
+import { Config } from 'git-cms-service';
 
 const kBaseURL = 'https://gitlab.com/api/v4/projects/21093243';
 

@@ -1,7 +1,5 @@
+import { Item, Service, User} from 'git-cms-service';
 import React from 'react';
-
-import { Item, User } from '~/models';
-import { Service } from '~/services';
 
 export class Avatar extends React.PureComponent<Item<User>, Item<User>> {
   private static _items: User[] = [];

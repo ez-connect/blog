@@ -1,3 +1,4 @@
+import { Issue, Item, Routing, Service } from 'git-cms-service';
 import React from 'react';
 
 import {
@@ -7,9 +8,6 @@ import {
   PostHeader,
   ScrollToTop,
 } from '~/components';
-import { Issue, Item } from '~/models';
-import { Service } from '~/services';
-import { Routing } from '~/utils';
 
 export class PostPage extends React.PureComponent<any, Item<Issue>> {
   public state: Item<Issue> = {};

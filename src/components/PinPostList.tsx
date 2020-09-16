@@ -1,11 +1,11 @@
 import './styles.css';
 
+import { Issue, ItemList, Markdown } from 'git-cms-service';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as timeago from 'timeago.js';
 
-import { Issue, ItemList } from '~/models';
-import { Markdown, Routing } from '~/utils';
+import { Routing } from '~/utils';
 
 import { Avatar } from './Avatar';
 import { HorizonTagList } from './HorizonTagList';

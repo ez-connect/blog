@@ -1,10 +1,9 @@
 import './styles.css';
 
+import { Label, Service } from 'git-cms-service';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Label } from '~/models';
-import { Service } from '~/services';
 import { Routing } from '~/utils';
 
 // interface Total {

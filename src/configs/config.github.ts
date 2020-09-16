@@ -1,4 +1,4 @@
-import { Config } from '~/models';
+import { Config } from 'git-cms-service';
 
 const kBaseURL = 'https://api.github.com/repos/ez-connect/blog';
 

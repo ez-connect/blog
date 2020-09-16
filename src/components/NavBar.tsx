@@ -1,11 +1,9 @@
+import { Issue, Item, Label,Markdown, Service } from 'git-cms-service';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { config } from '~/configs';
-import { Issue, Item } from '~/models';
-import { Label } from '~/models/label';
-import { Service } from '~/services';
-import { Markdown, Routing } from '~/utils';
+import { Routing } from '~/utils';
 
 export class NavBar extends React.PureComponent<any, Item<Issue>> {
   public state: Item<Issue> = {};
