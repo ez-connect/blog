@@ -13,20 +13,16 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "axios": "^0.20.0",
-    "buffer": "^5.6.0",
     "git-cms-service": "https://github.com/ez-connect/git-cms-service",
     "history": "^5.0.0",
-    "md-2-json": "^1.0.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-ga": "^3.1.2",
     "react-markdown": "^4.3.1",
     "react-router-dom": "^5.2.0",
     "react-router-scroll-memory": "^2.0.7",
     "react-scripts": "3.4.3",
     "react-syntax-highlighter": "^13.5.3",
-    "reading-time": "^1.2.0",
-    "slugify": "^1.4.5",
     "timeago.js": "^4.0.2"
   },
   "devDependencies": {
