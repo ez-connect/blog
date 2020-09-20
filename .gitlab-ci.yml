@@ -10,7 +10,7 @@ before_script:
 pages:
   stage: deploy
   script:
-    - GENERATE_SOURCEMAP=false && yarn build
+    - yarn build
     - rm -rf public
     - mv build public
   artifacts:
