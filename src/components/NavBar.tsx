@@ -79,7 +79,7 @@ export class NavBar extends React.PureComponent<any, Item<Issue>> {
         <Link
           className="nav-link"
           to={{
-            pathname: Routing.getTagPath(item),
+            pathname: Routing.getTagPath(name),
             item,
           }}
         >

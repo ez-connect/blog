@@ -13,7 +13,7 @@ import { HorizonTagList } from './HorizonTagList';
 export class PinPost extends React.PureComponent<Item<Issue>> {
   public render() {
     const { item } = this.props;
-    const { title, body, labels, user, updated_at } = item;
+    const { id, title, body, labels, user, updated_at } = item;
     return (
       <div className="mb-3 d-flex align-items-center">
         <img className="post-list-image" src={Markdown.getImage(body)} alt="" />
@@ -22,7 +22,7 @@ export class PinPost extends React.PureComponent<Item<Issue>> {
             <Link
               className="text-dark"
               to={{
-                pathname: Routing.getPostPath(item),
+                pathname: Routing.getPostPath(title, id),
                 item,
               }}
             >

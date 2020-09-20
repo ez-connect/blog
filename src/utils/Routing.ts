@@ -1,4 +1,4 @@
-import { Issue, Label, Routing as RoutingBase } from 'git-cms-service';
+import { Routing as RoutingBase } from 'git-cms-service';
 import { createBrowserHistory } from 'history';
 
 import { config } from '~/configs';
@@ -17,12 +17,12 @@ class Routing {
     history.push(pathname);
   }
 
-  public getTagPath(value: Label): string {
+  public getTagPath(value: string): string {
     return `${config.router.tags}/${RoutingBase.getTagSlug(value)}`;
   }
 
-  public getPostPath(value: Issue): string {
-    return `${config.router.posts}/${RoutingBase.getPostSlug(value)}`;
+  public getPostPath(title: string, id: number): string {
+    return `${config.router.posts}/${RoutingBase.getPostSlug(title, id)}`;
   }
 }
 

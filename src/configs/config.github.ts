@@ -20,9 +20,6 @@ export const config: Config = {
       clientSecret: '490855f69ab145d378ed2e0612908e6109902694',
       directUri: 'http://localhost:3000/auth',
     },
-    // condition: {
-    //   state: 'closed',
-    // },
     labels: {
       nav: 'nav',
       header: 'header',
@@ -32,7 +29,6 @@ export const config: Config = {
       pin: 'pin',
     },
   },
-
   router: {
     home: '/',
     about: '/about',

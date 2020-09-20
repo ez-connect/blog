@@ -27,7 +27,7 @@ export class HorizonTagList extends React.PureComponent<Props> {
               <Link
                 className="badge"
                 style={this._getBadgeStyle(item)}
-                to={Routing.getTagPath(item)}
+                to={Routing.getTagPath(name)}
               >
                 {name}
               </Link>

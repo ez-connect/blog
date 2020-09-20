@@ -2,11 +2,12 @@ import '~/assets/styles/main.css';
 
 import { Service } from 'git-cms-service';
 import React from 'react';
+import ReactGA from 'react-ga';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ScrollMemory from 'react-router-scroll-memory';
 
 import { config } from './configs';
-import { AuthPage, HomePage, PostPage,TagPage } from './pages';
+import { AuthPage, HomePage, PostPage, TagPage } from './pages';
 import { Routing } from './utils';
 
 class App extends React.PureComponent {
@@ -14,18 +15,23 @@ class App extends React.PureComponent {
     super(props);
     Service.init(config.service);
     Service.onUnauthorized(this._onUnauthorized);
+
+    if (config.trackingCode) {
+      ReactGA.initialize(config.trackingCode);
+    }
   }
 
   public render() {
+    const { tags, posts, auth, home } = config.router;
     return (
       <BrowserRouter>
         <ScrollMemory />
         <Switch>
-          <Route path={`${config.router.tags}/:id`} component={TagPage} />
-          <Route path={`${config.router.posts}/:id`} component={PostPage} />
-          <Route path={config.router.auth} component={AuthPage} />
+          <Route path={`${tags}/:id`} component={TagPage} />
+          <Route path={`${posts}/:id`} component={PostPage} />
+          <Route path={auth} component={AuthPage} />
 
-          <Route path={config.router.home} component={HomePage} />
+          <Route path={home} component={HomePage} />
         </Switch>
       </BrowserRouter>
     );

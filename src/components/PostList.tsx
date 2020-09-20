@@ -28,7 +28,7 @@ export class PostList extends React.PureComponent<ItemList<Issue>> {
                   <Link
                     className="text-dark"
                     to={{
-                      pathname: Routing.getPostPath(item),
+                      pathname: Routing.getPostPath(title, id),
                       item,
                     }}
                   >

@@ -19,7 +19,7 @@ export class PinPostList extends React.PureComponent<ItemList<Issue>> {
     }
 
     const firstPost = items[0];
-    const { title, body, user, labels, updated_at } = firstPost;
+    const { id, title, body, user, labels, updated_at } = firstPost;
     return (
       <div className="container pt-4 pb-4">
         <div className="row">
@@ -35,7 +35,7 @@ export class PinPostList extends React.PureComponent<ItemList<Issue>> {
                   <Link
                     className="text-dark"
                     to={{
-                      pathname: Routing.getPostPath(firstPost),
+                      pathname: Routing.getPostPath(title, id),
                       item: firstPost,
                     }}
                   >

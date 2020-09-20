@@ -38,7 +38,7 @@ export class TagList extends React.PureComponent<any, State> {
           return (
             <p key={name}>
               <Link
-                to={{ pathname: Routing.getTagPath(item), item }}
+                to={{ pathname: Routing.getTagPath(name), item }}
                 className="text-dark"
               >
                 <span className="font-weight-bold">{name}</span>

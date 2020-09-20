@@ -22,9 +22,6 @@ export const config: Config = {
         'c9e20578e161e29be4d46c9a340e75e95441492be5e508290127c56c5465495d',
       directUri: 'http://localhost:3000/auth',
     },
-    // condition: {
-    //   state: 'closed',
-    // },
     labels: {
       nav: 'nav',
       header: 'header',

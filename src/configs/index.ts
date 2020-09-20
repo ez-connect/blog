@@ -1,2 +1,2 @@
-export * from './config.github';
-// export * from './config.gitlab';
+// export * from './config.github';
+export * from './config.gitlab';
