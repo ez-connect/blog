@@ -18,11 +18,11 @@ class Routing {
   }
 
   public getTagPath(value: string): string {
-    return `${config.router.tags}/${RoutingBase.getTagSlug(value)}`;
+    return `${process.env.PUBLIC_URL}${config.router.tags}/${RoutingBase.getTagSlug(value)}`;
   }
 
   public getPostPath(title: string, id: number): string {
-    return `${config.router.posts}/${RoutingBase.getPostSlug(title, id)}`;
+    return `${process.env.PUBLIC_URL}${config.router.posts}/${RoutingBase.getPostSlug(title, id)}`;
   }
 }
 
