@@ -24,7 +24,7 @@ class App extends React.PureComponent {
   public render() {
     const { tags, posts, auth, home } = config.router;
     return (
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <ScrollMemory />
         <Switch>
           <Route path={`${tags}/:id`} component={TagPage} />
