@@ -1,20 +1,20 @@
 import '~/assets/styles/main.css';
 
-import { Service } from 'git-cms-service';
+import { Logger, Rest, Service } from 'git-cms-service';
 import React from 'react';
 import ReactGA from 'react-ga';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import ScrollMemory from 'react-router-scroll-memory';
 
 import { config } from './configs';
 import { AuthPage, HomePage, PostPage, TagPage } from './pages';
-import { Routing } from './utils';
 
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
+
+    Rest.onError(this._onError);
     Service.init(config.service);
-    Service.onUnauthorized(this._onUnauthorized);
 
     if (config.trackingCode) {
       ReactGA.initialize(config.trackingCode);
@@ -24,7 +24,7 @@ class App extends React.PureComponent {
   public render() {
     const { tags, posts, auth, home } = config.router;
     return (
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <HashRouter basename={process.env.PUBLIC_URL}>
         <ScrollMemory />
         <Switch>
           <Route path={`${tags}/:id`} component={TagPage} />
@@ -33,12 +33,13 @@ class App extends React.PureComponent {
 
           <Route path={home} component={HomePage} />
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 
-  private _onUnauthorized() {
-    Routing.push(config.router.signIn);
+  private _onError() {
+    Logger.warn(Service.getSignInURL());
+    // window.location.href = Service.getSignInURL();
   }
 }
 

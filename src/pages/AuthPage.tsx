@@ -1,8 +1,5 @@
-import { Service } from 'git-cms-service';
+import { Rest, Service } from 'git-cms-service';
 import React from 'react';
-
-import { config } from '~/configs';
-import { Routing } from '~/utils';
 
 export class AuthPage extends React.PureComponent {
   public componentDidMount() {
@@ -18,8 +15,8 @@ export class AuthPage extends React.PureComponent {
     console.warn(code);
 
     const token = await Service.getAccessToken(code);
-    // console.warn(token);
+    Rest.setAuthorization(token);
+    console.warn(token);
     localStorage.setItem('token', token);
-    Routing.push(config.router.home);
   }
 }

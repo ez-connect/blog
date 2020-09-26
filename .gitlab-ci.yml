@@ -13,8 +13,6 @@ pages:
     - yarn build
     - rm -rf public
     - mv build public
-    - cp public/index.html public/200.html
-    - cp public/index.html public/404.html
   artifacts:
     paths:
       - public # GitLab pages serve from a 'public' directory

@@ -21,7 +21,6 @@ export class HorizonTagList extends React.PureComponent<Props> {
       <>
         {items.map((item) => {
           const { name } = item;
-          console.warn(name)
           return (
             <span key={name}>
               <Link

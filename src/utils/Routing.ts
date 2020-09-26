@@ -1,9 +1,9 @@
 import { Routing as RoutingBase } from 'git-cms-service';
-import { createBrowserHistory } from 'history';
+import { createHashHistory } from 'history';
 
 import { config } from '~/configs';
 
-const history = createBrowserHistory();
+const history = createHashHistory();
 
 class Routing {
   public getCurrentPath(): string {

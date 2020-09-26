@@ -1,4 +1,4 @@
-import { Issue, Item, Label,Markdown, Service } from 'git-cms-service';
+import { Issue, Item, Label, Markdown, Service } from 'git-cms-service';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -39,7 +39,7 @@ export class NavBar extends React.PureComponent<any, Item<Issue>> {
                 {this._renderTagList(labels)}
               </ul>
 
-              {this._renderSignIn()}
+              {this._renderEditButton()}
             </div>
           </div>
         </nav>
@@ -47,21 +47,14 @@ export class NavBar extends React.PureComponent<any, Item<Issue>> {
     );
   }
 
-  private _renderSignIn() {
-    const { authorization } = config.service;
-    if (!authorization) {
-      return null;
-    }
-
+  private _renderEditButton() {
     return (
       <ul
         className="navbar-nav ml-auto d-flex align-items-center"
-        onClick={() =>
-          Service.signIn(authorization.clientId, authorization.directUri)
-        }
+        onClick={() => console.warn('Edit')}
       >
         <li className="nav-item highlight">
-          <span className="nav-link btn">Sign in</span>
+          <span className="nav-link btn">Edit this page</span>
         </li>
       </ul>
     );
